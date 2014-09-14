@@ -1,6 +1,6 @@
 package com.tj.mmanager.base.domain.model;
 
-
+import java.util.List;
 
 /**
  * @author Thejuampi
@@ -9,14 +9,44 @@ package com.tj.mmanager.base.domain.model;
  */
 public class Localidad {
 
-	private Long id;
-	private String nombre;
+    private Long id;
+    private String nombre;
+    private List<Escuela> escuelas;
 
-	public Localidad(){
+    public Localidad() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
+    public Localidad(String nombre) {
+	this.nombre = nombre;
+    }
 
-	}
-}//end Localidad
+    @Override
+    public void finalize() throws Throwable {
+
+    }
+
+    public Long getId() {
+	return id;
+    }
+
+    public String getNombre() {
+	return nombre;
+    }
+
+    public List<Escuela> getEscuelas() {
+	return escuelas;
+    }
+
+    public void setId(Long id) {
+	this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+	this.nombre = nombre;
+    }
+
+    public void setEscuelas(List<Escuela> escuelas) {
+	this.escuelas = escuelas;
+    }
+}// end Localidad
