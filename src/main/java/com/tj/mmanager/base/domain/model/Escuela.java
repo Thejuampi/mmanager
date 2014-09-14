@@ -2,12 +2,32 @@ package com.tj.mmanager.base.domain.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * @author Thejuampi
  * @version 1.0
  * @created 13-Sep-2014 07:54:36 p.m.
  */
+@Entity
+@Table(name = "ESCUELAS")
 public class Escuela {
+
+    public interface Atributos {
+	static final String ID = "id";
+	static final String DIRECCION = "direccion";
+	static final String EMAIL = "email";
+	static final String NOMBRE = "nombre";
+	static final String NUMERO = "numero";
+	static final String TELEFONO = "telefono";
+	static final String LOCALIDAD = "localidad";
+	static final String CICLOS_LECTIVOS = "ciclosLectivos";
+    }
 
     private Long id;
     private String direccion;
@@ -35,6 +55,8 @@ public class Escuela {
 
     }
 
+    @Id
+    @GeneratedValue
     public Long getId() {
 	return id;
     }
@@ -59,6 +81,7 @@ public class Escuela {
 	return telefono;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
     public Localidad getLocalidad() {
 	return localidad;
     }

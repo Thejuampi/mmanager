@@ -1,5 +1,7 @@
 package com.tj.mmanager.base.view.screen;
 
+import org.springframework.stereotype.Component;
+
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -14,6 +16,7 @@ import com.vaadin.ui.VerticalLayout;
 /*
  * Para establecer los titulos hay que sobreescribir @getTitlePanel() y @getResultsTitle()
  */
+@Component
 public abstract class BaseSearchPanel<BEAN> extends Panel {
 
     private static final long serialVersionUID = 8814637617684988536L;
