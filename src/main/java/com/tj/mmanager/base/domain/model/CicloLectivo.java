@@ -10,6 +10,15 @@ import java.util.List;
  */
 public class CicloLectivo {
 
+    public interface Atributos {
+	static final String ID = "id";
+	static final String ANIO = "anio";
+	static final String FECHA_FIN = "fechaFin";
+	static final String FECHA_INICIO = "fechaInicio";
+	static final String ESCUELA = "escuela";
+	static final String TRIMESTRES = "trimestres";
+    }
+
     private Long id;
     private Short anio;
     private Date fechaFin;
