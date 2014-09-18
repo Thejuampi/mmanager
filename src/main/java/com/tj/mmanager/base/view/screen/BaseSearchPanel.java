@@ -2,6 +2,7 @@ package com.tj.mmanager.base.view.screen;
 
 import org.springframework.stereotype.Component;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -17,19 +18,19 @@ import com.vaadin.ui.VerticalLayout;
  * Para establecer los titulos hay que sobreescribir @getTitlePanel() y @getResultsTitle()
  */
 @Component
-public abstract class BaseSearchPanel<BEAN> extends Panel {
+public abstract class BaseSearchPanel<T extends Object> extends Panel {
 
     private static final long serialVersionUID = 8814637617684988536L;
 
     private VerticalLayout mainLayout;
-    private Label titleLabel;
+    private Label titleLabel = new Label();
     private GridLayout filtersLayout;
     private HorizontalLayout buttonsLayout;
     private Button searchButton;
     private Button newButton;
     private Button clearButton;
     private Button closeButton;
-    private Label resultsLabel;
+    private Label resultsLabel = new Label();
     private Table resultsTable;
 
     // private static final String DEFAULT_PANEL_TITLE = "BaseSearchPanel";
@@ -51,6 +52,7 @@ public abstract class BaseSearchPanel<BEAN> extends Panel {
 
 	resultsLabel.setValue(getResultsTitle());
 	resultsTable = new Table();
+	resultsTable.setContainerDataSource(getBeanItemContainer());
 	layout.addComponent(resultsLabel);
 	layout.addComponent(resultsTable);
 	return layout;
@@ -72,6 +74,8 @@ public abstract class BaseSearchPanel<BEAN> extends Panel {
     public abstract void newEntity();
 
     public abstract void clear();
+
+    public abstract BeanItemContainer<?> getBeanItemContainer();
 
     protected HorizontalLayout buildButtonsLayout() {
 	HorizontalLayout layoutInterno = new HorizontalLayout();
@@ -127,8 +131,12 @@ public abstract class BaseSearchPanel<BEAN> extends Panel {
 	return layoutExterno;
     }
 
-    protected abstract String getTitlePanel();
+    protected String getTitlePanel() {
+	return "TITULO";
+    }
 
-    protected abstract String getResultsTitle();
+    protected String getResultsTitle() {
+	return "RESULTADOS";
+    }
 
 }

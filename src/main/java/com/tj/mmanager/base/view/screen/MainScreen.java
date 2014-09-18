@@ -8,11 +8,14 @@ public class MainScreen extends CustomComponent {
 
     private static final long serialVersionUID = 3924599993603881234L;
 
+    // @Autowired
+    private LocalidadSearchScreen localidadSearchScreen = new LocalidadSearchScreen();
+
     private VerticalLayout mainLayout;
     private Label labelTitulo;
 
     public MainScreen() {
-	this.setWidth("320px");
+	this.setWidth("800px");
 	mainLayout = buildMainLayout();
 	setCompositionRoot(mainLayout);
     }
@@ -23,6 +26,7 @@ public class MainScreen extends CustomComponent {
 	labelTitulo = new Label("MuchyManager");
 	labelTitulo.setStyleName("title");
 	layout.addComponent(labelTitulo);
+	layout.addComponent(localidadSearchScreen);
 
 	return layout;
     }
