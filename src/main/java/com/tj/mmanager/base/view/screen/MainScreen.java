@@ -1,5 +1,6 @@
 package com.tj.mmanager.base.view.screen;
 
+import com.tj.mmanager.base.domain.model.Localidad;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -9,7 +10,7 @@ public class MainScreen extends CustomComponent {
     private static final long serialVersionUID = 3924599993603881234L;
 
     // @Autowired
-    private LocalidadSearchScreen localidadSearchScreen = new LocalidadSearchScreen();
+    private LocalidadSearchScreen localidadSearchScreen = new LocalidadSearchScreen(Localidad.class);
 
     private VerticalLayout mainLayout;
     private Label labelTitulo;
