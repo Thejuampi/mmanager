@@ -1,21 +1,14 @@
 package com.tj.mmanager.base.view.screen;
 
-import java.util.Iterator;
-
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.tj.mmanager.base.domain.model.Localidad;
-import com.tj.mmanager.base.view.generator.FieldGenerator;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.Field;
-import com.vaadin.ui.TextField;
 
 @Component
+@Scope("prototype")
 public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
-
-    public LocalidadSearchScreen(Class<Localidad> clazz) {
-	super(clazz);
-    }
 
     private static final long serialVersionUID = 4870452614299228051L;
 
@@ -25,12 +18,7 @@ public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
 
     @Override
     public void search() {
-	Iterator<com.vaadin.ui.Component> it = filtersLayout.getComponentIterator();
-	while (it.hasNext()) {
-	    com.vaadin.ui.Field field = (Field) it.next();
-	    @SuppressWarnings("unused")
-	    Object o = field.getValue();
-	}
+	
     }
 
     @Override
@@ -83,15 +71,21 @@ public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
     }
 
     @Override
-    protected void initMapFieldGenerator() {
-	addFieldGenerator(Localidad.Atributos.NOMBRE, new FieldGenerator() {
-
-	    @Override
-	    public Field createField() {
-		return new TextField("Nombre");
-	    }
-	});
-
+    protected Localidad getBean() {
+	return new Localidad();
     }
+
+
+//    @Override
+//    protected void initMapFieldGenerator() {
+//	addFieldGenerator(Localidad.Atributos.NOMBRE, new FieldGenerator() {
+//
+//	    @Override
+//	    public Field createField() {
+//		return new TextField("Nombre");
+//	    }
+//	});
+//
+//    }
 
 }

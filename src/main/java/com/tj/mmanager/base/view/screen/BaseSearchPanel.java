@@ -1,19 +1,16 @@
 package com.tj.mmanager.base.view.screen;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.io.Serializable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.tj.mmanager.base.view.generator.FieldGenerator;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
@@ -25,16 +22,16 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Component
 @Scope("prototype")
-public abstract class BaseSearchPanel<T extends Object> extends Panel {
+public abstract class BaseSearchPanel<T extends Object> extends Panel implements Serializable {
 
     private static final long serialVersionUID = 8814637617684988536L;
 
-    Class<T> clazz;
-    Map<String, FieldGenerator> mapFieldGenerator = new HashMap<String, FieldGenerator>();
+    private T bean;
+    //Map<String, FieldGenerator> mapFieldGenerator = new HashMap<String, FieldGenerator>();
 
     private VerticalLayout mainLayout;
     private Label titleLabel = new Label();
-    protected GridLayout filtersLayout;
+    protected Form form;
     private HorizontalLayout buttonsLayout;
     private Button searchButton;
     private Button newButton;
@@ -46,9 +43,9 @@ public abstract class BaseSearchPanel<T extends Object> extends Panel {
     // private static final String DEFAULT_PANEL_TITLE = "BaseSearchPanel";
     // private static final String DEFAULT_RESULTS_TITLE = "Results";
 
-    public BaseSearchPanel(Class<T> clazz) {
-	this.clazz = clazz;
-	initMapFieldGenerator();
+    public BaseSearchPanel() {
+	//this.clazz = (Class<T>) bean.getClass();
+	//initMapFieldGenerator();
 	mainLayout = buildMainLayout();
 	this.addComponent(mainLayout);
 	// addFieldGenerator(propertyId, fieldGenerator)
@@ -61,8 +58,8 @@ public abstract class BaseSearchPanel<T extends Object> extends Panel {
 	titleLabel.setValue(getTitlePanel());
 	titleLabel.setStyleName("title");
 	layout.addComponent(titleLabel);
-	filtersLayout = buildFiltersLayout();
-	layout.addComponent(filtersLayout);
+	form = buildForm();
+	layout.addComponent(form);
 	buttonsLayout = buildButtonsLayout();
 	layout.addComponent(buttonsLayout);
 
@@ -78,27 +75,33 @@ public abstract class BaseSearchPanel<T extends Object> extends Panel {
 	return layout;
     }
 
-    protected abstract void initMapFieldGenerator();
+//    protected abstract void initMapFieldGenerator();
 
-    protected void addFieldGenerator(String propertyId, FieldGenerator fieldGenerator) {
-	mapFieldGenerator.put(propertyId, fieldGenerator);
-    }
+//    protected void addFieldGenerator(String propertyId, FieldGenerator fieldGenerator) {
+//	mapFieldGenerator.put(propertyId, fieldGenerator);
+//    }
+    
+    protected abstract T getBean();
 
-    protected GridLayout buildFiltersLayout() {
-	int fieldsQty = clazz.getDeclaredFields().length;
-	if (fieldsQty % 2 != 0) {
-	    ++fieldsQty;
-	}
-	Field[] fields = clazz.getDeclaredFields();
-	GridLayout layout = new GridLayout(2, fieldsQty / 2);
+    protected Form buildForm() {
+//	int fieldsQty = clazz.getDeclaredFields().length;
+//	if (fieldsQty % 2 != 0) {
+//	    ++fieldsQty;
+//	}
+	//Field[] fields = clazz.getDeclaredFields();
+	Form form = new Form();
+	bean = getBean();
+	BeanItem<T> item = new BeanItem<T>(bean, getVisibleItemProperties());
+	//Item item = new BeanItem<T>
+	form.setItemDataSource(item);
 
-	for (Field field : fields) {
-	    if (mapFieldGenerator.containsKey(field.getName())) {
-		com.vaadin.ui.Field vaadinField = mapFieldGenerator.get(field.getName()).createField();
-		layout.addComponent(vaadinField);
-	    }
-	}
-	return layout;
+//	for (Field field : fields) {
+//	    if (mapFieldGenerator.containsKey(field.getName())) {
+//		com.vaadin.ui.Field vaadinField = mapFieldGenerator.get(field.getName()).createField();
+//		layout.addComponent(vaadinField);
+//	    }
+//	}
+	return form;
     }
 
     /*
@@ -163,8 +166,9 @@ public abstract class BaseSearchPanel<T extends Object> extends Panel {
 	layoutInterno.addComponent(closeButton);
 
 	HorizontalLayout layoutExterno = new HorizontalLayout();
+	layoutExterno.setWidth("100%");
 	layoutExterno.addComponent(layoutInterno);
-	layoutExterno.setComponentAlignment(layoutInterno, Alignment.MIDDLE_LEFT);
+	layoutExterno.setComponentAlignment(layoutInterno, Alignment.MIDDLE_RIGHT);
 	return layoutExterno;
     }
 

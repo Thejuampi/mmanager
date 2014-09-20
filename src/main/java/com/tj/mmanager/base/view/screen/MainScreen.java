@@ -1,16 +1,21 @@
 package com.tj.mmanager.base.view.screen;
 
-import com.tj.mmanager.base.domain.model.Localidad;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
+@Component
+@Scope("prototype")
 public class MainScreen extends CustomComponent {
 
     private static final long serialVersionUID = 3924599993603881234L;
 
-    // @Autowired
-    private LocalidadSearchScreen localidadSearchScreen = new LocalidadSearchScreen(Localidad.class);
+    @Autowired
+    private LocalidadSearchScreen localidadSearchScreen;
 
     private VerticalLayout mainLayout;
     private Label labelTitulo;

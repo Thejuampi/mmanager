@@ -1,11 +1,31 @@
 <?xmlversion = "1.0" encoding = "UTF-8"?>
-<beans xmlns = "http://www.springframework.org/schema/beans"
-	xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context = "http://www.springframework.org/schema/context"
-	xsi:schemaLocation = "http://www.springframework.org/schema/beans
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-<context:annotation-config/>
-<!--beandeclarationsgohere-->
+
+	<!-- Activates scanning of @Autowired -->
+	<context:annotation-config />
+
+<!-- 	Turn on AspectJ @Configurable support-->
+<!-- 	<context:spring-configured /> -->
+
+	<context:component-scan base-package="com.tj.mmanager" />
+
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+		
+	<bean id="applicationServlet" class="org.springframework.web.servlet.mvc.ServletWrappingController"
+     p:servletClass="com.tj.mmanager.base.view.AutowiringApplicationServlet">
+      <property name="initParameters">
+          <props>
+              <prop key="application">com.tj.mmanager.base.view.MainApplication</prop>
+          </props>
+      </property>
+  </bean>
+
 </beans>
