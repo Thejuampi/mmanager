@@ -59,30 +59,30 @@
 			<version>1.0.1.Final</version>
 		</dependency>
 
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.7</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>log4j</groupId> -->
+		<!-- <artifactId>log4j</artifactId> -->
+		<!-- <version>1.2.15</version> -->
+		<!-- <exclusions> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>com.sun.jmx</groupId> -->
+		<!-- <artifactId>jmxri</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>com.sun.jdmk</groupId> -->
+		<!-- <artifactId>jmxtools</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>javax.jms</groupId> -->
+		<!-- <artifactId>jms</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- </exclusions> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>slf4j-log4j12</artifactId> -->
+		<!-- <version>1.7.7</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -109,7 +109,7 @@
 			<artifactId>hsqldb</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		
+
 		<!-- DEPENDENCIAS SPRING -->
 
 		<dependency>
@@ -203,18 +203,20 @@
 			<version>1.4</version>
 		</dependency>
 
-<!-- 		<dependency>
-			<groupId>jaf</groupId>
-			<artifactId>activation</artifactId>
-			<version>1.0.2</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>jaf</groupId> <artifactId>activation</artifactId> 
+			<version>1.0.2</version> </dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-velocity</artifactId>
 			<version>1.1.4.RELEASE</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.dellroad</groupId>
+			<artifactId>dellroad-stuff-vaadin</artifactId>
+			<version>1.0.905</version>
+		</dependency>
 	</dependencies>
 
 </project>

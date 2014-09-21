@@ -1,16 +1,20 @@
 package com.tj.mmanager.base.view.screen;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.tj.mmanager.AbstractBean;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
 @Component
 @Scope("prototype")
-public class MainScreen extends CustomComponent {
+public class MainScreen extends Panel {
 
     private static final long serialVersionUID = 3924599993603881234L;
 
@@ -21,9 +25,14 @@ public class MainScreen extends CustomComponent {
     private Label labelTitulo;
 
     public MainScreen() {
-	this.setWidth("800px");
-	mainLayout = buildMainLayout();
-	setCompositionRoot(mainLayout);
+    }
+    
+    @PostConstruct
+    protected void init(){
+    	this.setWidth("800px");
+    	mainLayout = buildMainLayout();
+    	//setCompositionRoot(mainLayout);
+    	this.setLayout(mainLayout);
     }
 
     protected VerticalLayout buildMainLayout() {
