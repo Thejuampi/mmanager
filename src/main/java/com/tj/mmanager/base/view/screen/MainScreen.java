@@ -14,7 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 
 @Component
 @Scope("prototype")
-public class MainScreen extends Panel {
+public class MainScreen extends CustomComponent {
 
     private static final long serialVersionUID = 3924599993603881234L;
 
@@ -29,10 +29,11 @@ public class MainScreen extends Panel {
     
     @PostConstruct
     protected void init(){
+    	//getApplication().setTheme("applayout");
     	this.setWidth("800px");
     	mainLayout = buildMainLayout();
-    	//setCompositionRoot(mainLayout);
-    	this.setLayout(mainLayout);
+    	setCompositionRoot(mainLayout);
+    	//this.setLayout(mainLayout);
     }
 
     protected VerticalLayout buildMainLayout() {

@@ -37,7 +37,7 @@ public class SpringMainApplication extends SpringContextApplication implements B
         // Example of creating a @VaadinConfigurable bean
         this.log.info(this.getClass().getSimpleName() + " invoking new VaadinConfigurableBean()");
 //        this.vaadinConfigurableBean = new VaadinConfigurableBean();  // bean is @VaadinConfigurable, so the aspect will autowire it
-
+        setTheme("applayout");
         Window mainWindow = new Window("PRUEBA");
         this.setMainWindow(mainWindow);
         mainWindow.addComponent(mainScreen);

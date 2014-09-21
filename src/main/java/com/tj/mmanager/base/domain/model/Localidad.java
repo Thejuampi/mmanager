@@ -1,5 +1,6 @@
 package com.tj.mmanager.base.domain.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,9 +17,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "LOCALIDADES")
-public class Localidad {
+public class Localidad implements Serializable {
 
-    public interface Atributos {
+
+	private static final long serialVersionUID = -326841381655110225L;
+
+	public interface Atributos {
 	static final String ID = "id";
 	static final String NOMBRE = "nombre";
 	static final String ESCUELAS = "escuelas";
