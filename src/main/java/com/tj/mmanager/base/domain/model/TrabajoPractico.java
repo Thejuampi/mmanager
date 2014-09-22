@@ -35,7 +35,7 @@ public class TrabajoPractico extends ElementoEvaluable {
 
     @Override
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     public Long getId() {
 	return super.getId();
     }

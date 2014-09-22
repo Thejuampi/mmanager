@@ -19,22 +19,28 @@
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 	<bean
 		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
-		
-		<bean name = "mainScreen" class="com.tj.mmanager.base.view.screen.MainScreen"></bean>
 
-<!-- 	<bean id="applicationServlet" -->
-<!-- 		class="org.springframework.web.servlet.mvc.ServletWrappingController"> -->
-<!-- 		<property name="servletClass" value="com.tj.mmanager.base.view.AutowiringApplicationServlet"> -->
-<!-- 		</property> -->
-<!-- 		       -->
-<!-- 		<property name="initParameters"> -->
-<!-- 			          -->
-<!-- 			<props> -->
-<!-- 				              -->
-<!-- 				<prop key="application">com.tj.mmanager.base.view.MainApplication</prop> -->
-<!-- 				          -->
-<!-- 			</props> -->
-<!-- 			       -->
-<!-- 		</property> -->
-<!-- </bean> -->	
+	<bean name="mainScreen" class="com.tj.mmanager.base.view.screen.MainScreen"></bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<!-- <property name="url" value="jdbc:hsqldb:hsql://localhost/spitter/spitter" 
+			/> -->
+		<property name="url" value="jdbc:hsqldb:database/DB"></property>
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="10" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.tj.mmanager.base.domain.model" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

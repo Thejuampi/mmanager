@@ -17,7 +17,7 @@ public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
     static final String[] VISIBLE_COLUMNS = new String[] { Localidad.Atributos.NOMBRE };
 
     @Override
-    public void search() {
+    public void search(Localidad bean) {
 	
     }
 
@@ -28,7 +28,7 @@ public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
     }
 
     @Override
-    public void newEntity() {
+    public void newEntity(Localidad bean) {
 	// TODO Auto-generated method stub
 
     }

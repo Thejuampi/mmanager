@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.tj.mmanager.AbstractBean;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
 @Component
@@ -33,7 +31,6 @@ public class MainScreen extends CustomComponent {
     	this.setWidth("800px");
     	mainLayout = buildMainLayout();
     	setCompositionRoot(mainLayout);
-    	//this.setLayout(mainLayout);
     }
 
     protected VerticalLayout buildMainLayout() {

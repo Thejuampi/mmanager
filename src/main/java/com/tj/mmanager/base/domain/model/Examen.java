@@ -32,7 +32,7 @@ public class Examen extends ElementoEvaluable {
 
     @Override
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     public Long getId() {
 	return super.getId();
     }
