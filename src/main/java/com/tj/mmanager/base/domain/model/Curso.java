@@ -3,9 +3,12 @@ package com.tj.mmanager.base.domain.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -50,16 +53,21 @@ public class Curso {
 	return nombre;
     }
 
+    @OneToMany(fetch=FetchType.LAZY)
     public List<Trimestre> getTrimestres() {
 	return trimestres;
+	//TODO estoy haciendo esto a las 00:31 y tengo mucho sueño
     }
 
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = Division.Atributos.CURSO)
     public List<Division> getDivisiones() {
 	return divisiones;
     }
 
+    @ManyToMany(fetch=FetchType.LAZY)
     public List<Materia> getMaterias() {
 	return materias;
+	//TODO ver quien mapea a quien.
     }
 
     public void setId(Long id) {

@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -86,6 +87,7 @@ public class Escuela {
 	return localidad;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = CicloLectivo.Atributos.ESCUELA)
     public List<CicloLectivo> getCiclosLectivos() {
 	return ciclosLectivos;
     }

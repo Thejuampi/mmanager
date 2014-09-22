@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -35,19 +32,13 @@ public class Alumno extends Persona {
 	super.finalize();
     }
 
-    @Override
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-	return super.getId();
-    }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = DetalleElementoEvaluable.Atributos.ALUMNO)
     public List<DetalleElementoEvaluable> getDetallesElementosEvaluables() {
 	return detallesElementosEvaluables;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = Alumno.Atributos.DIVISIONES)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = Division.Atributos.ALUMNOS)
     public List<Division> getDivisiones() {
 	return divisiones;
     }

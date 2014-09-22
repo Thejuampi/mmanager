@@ -3,11 +3,22 @@ package com.tj.mmanager.base.domain.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * @author Thejuampi
  * @version 1.0
  * @created 13-Sep-2014 07:54:36 p.m.
  */
+@Entity
 public class CicloLectivo {
 
     public interface Atributos {
@@ -35,6 +46,8 @@ public class CicloLectivo {
 
     }
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public Long getId() {
 	return id;
     }
@@ -43,20 +56,25 @@ public class CicloLectivo {
 	return anio;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getFechaFin() {
 	return fechaFin;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getFechaInicio() {
 	return fechaInicio;
     }
 
+    @ManyToOne(fetch=FetchType.LAZY)
     public Escuela getEscuela() {
 	return escuela;
     }
 
+    @OneToMany(fetch=FetchType.LAZY)
     public List<Trimestre> getTrimestres() {
 	return trimestres;
+	//TODO ver aca hay algo raro.
     }
 
     public void setId(Long id) {

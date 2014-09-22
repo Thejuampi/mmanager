@@ -30,12 +30,12 @@ public class Examen extends ElementoEvaluable {
 	super.finalize();
     }
 
-    @Override
-    @Id
-    //@GeneratedValue
-    public Long getId() {
-	return super.getId();
-    }
+//    @Override
+//    @Id
+//    //@GeneratedValue
+//    public Long getId() {
+//	return super.getId();
+//    }
 
     public String getTipo() {
 	return tipo;

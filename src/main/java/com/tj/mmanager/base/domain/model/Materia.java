@@ -2,6 +2,7 @@ package com.tj.mmanager.base.domain.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ import javax.persistence.OneToMany;
  * @version 1.0
  * @created 13-Sep-2014 07:54:37 p.m.
  */
+
+@Entity
 public class Materia {
 
     public interface Atributos {
