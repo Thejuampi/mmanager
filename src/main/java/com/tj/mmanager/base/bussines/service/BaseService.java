@@ -8,4 +8,6 @@ public interface BaseService<T,PK> {
 	
 	public List<T> findAll();
 	
+	public void save(T entity);
+	
 }

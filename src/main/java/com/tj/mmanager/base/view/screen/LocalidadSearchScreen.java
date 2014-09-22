@@ -1,8 +1,14 @@
 package com.tj.mmanager.base.view.screen;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import scala.annotation.meta.getter;
+
+import com.tj.mmanager.base.bussines.service.LocalidadService;
 import com.tj.mmanager.base.domain.model.Localidad;
 import com.vaadin.data.util.BeanItemContainer;
 
@@ -15,10 +21,16 @@ public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
     static final String[] VISIBLE_ITEM_PROPERTIES = new String[] { Localidad.Atributos.NOMBRE };
     static final String[] COLUMN_HEADERS = new String[] { Localidad.Atributos.NOMBRE };
     static final String[] VISIBLE_COLUMNS = new String[] { Localidad.Atributos.NOMBRE };
+    
+    @Autowired
+    LocalidadService service;
 
     @Override
     public void search(Localidad bean) {
-	
+    	List<Localidad> localidades = service.findAll();
+    	for(Localidad l : localidades) {
+    		System.out.println(l.getNombre());
+    	}
     }
 
     @Override
@@ -29,7 +41,6 @@ public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
 
     @Override
     public void newEntity(Localidad bean) {
-	// TODO Auto-generated method stub
 
     }
 

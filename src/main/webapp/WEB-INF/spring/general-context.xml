@@ -24,8 +24,6 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-		<!-- <property name="url" value="jdbc:hsqldb:hsql://localhost/spitter/spitter" 
-			/> -->
 		<property name="url" value="jdbc:hsqldb:database/DB"></property>
 		<property name="username" value="sa" />
 		<property name="password" value="" />
@@ -40,6 +38,8 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hbm2ddl.auto">update</prop>
+				<prop key="show_sql">true</prop>
 			</props>
 		</property>
 	</bean>

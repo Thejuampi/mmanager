@@ -56,7 +56,7 @@ public abstract class ElementoEvaluable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     public Long getId() {
 	return id;
     }
