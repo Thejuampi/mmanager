@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  * @author Thejuampi
@@ -16,7 +15,6 @@ import javax.persistence.Table;
  * @created 13-Sep-2014 07:54:37 p.m.
  */
 @Entity
-@Table(name = "LOCALIDADES")
 public class Localidad implements Serializable {
 
 
