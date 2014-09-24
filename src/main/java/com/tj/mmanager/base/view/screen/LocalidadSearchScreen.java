@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.tj.mmanager.base.bussines.service.LocalidadService;
 import com.tj.mmanager.base.domain.model.Localidad;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.ui.ComponentContainer;
 
 @Component
 @Scope("prototype")
@@ -31,8 +32,10 @@ public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
 
     @Override
     public void close() {
-	// TODO Auto-generated method stub
-
+    	if(getParent() != null){
+    		ComponentContainer container = (ComponentContainer)getParent();
+        	container.removeComponent(this);	
+    	} 
     }
 
     @Override
