@@ -2,7 +2,6 @@ package com.tj.mmanager.base.bussines.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,35 +9,38 @@ import com.tj.mmanager.base.bussines.service.BaseService;
 import com.tj.mmanager.base.persistence.dao.GenericDao;
 import com.tj.mmanager.base.persistence.filter.GenericFilter;
 
-public class BaseServiceImpl<T,PK> implements BaseService<T, PK> {
+public abstract class BaseServiceImpl<T,PK> implements BaseService<T, PK> {
 	
-	@Autowired
-	GenericDao<T, PK> dao;
-	
-	
+	private static final long serialVersionUID = -5552728755340866344L;
 
+	protected GenericDao<T, PK> dao;
+
+	protected void setDao(GenericDao<T,PK> dao){
+		this.dao = dao;
+	}
+	
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	public T findById(PK id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findById(id);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	public List<T> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findAll();
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void save(T entity) {
-		dao.save(entity);
+	public void saveEntity(T entity) {
+		dao.saveEntity(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	public List<T> filter(GenericFilter<PK> baseFilter) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.filter(baseFilter);
 	}
 
 }

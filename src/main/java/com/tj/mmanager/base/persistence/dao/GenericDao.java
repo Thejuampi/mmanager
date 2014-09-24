@@ -1,12 +1,22 @@
 package com.tj.mmanager.base.persistence.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+
 import com.tj.mmanager.base.persistence.filter.GenericFilter;
 
-public interface GenericDao<T, PK> {
+public interface GenericDao<T, PK> extends Serializable{
+
+	/**
+	 * 
+	 * @param session
+	 *            es el SessionFactory en realidad.
+	 */
+	public void setSession(SessionFactory session);
 
 	/**
 	 * @author Thejuampi
@@ -44,7 +54,7 @@ public interface GenericDao<T, PK> {
 	 *            la entidad a ser guardada en la base de datos
 	 * 
 	 */
-	public void save(T entity);
+	public void saveEntity(T entity);
 
 	/**
 	 * 
@@ -74,10 +84,11 @@ public interface GenericDao<T, PK> {
 	 * Ejemplo de uso: <br/>
 	 * 
 	 * if(StringUtils.isNotBlank(filter.getNombre())){<br/>
-	 *		criteria.add(Restrictions.ilike( Localidad.Atributos.NOMBRE, filter.getNombre() )); <br/>
-	 *	}<br/>
-	 *	
-	 *	return criteria;<br/>
+	 * criteria.add(Restrictions.ilike( Localidad.Atributos.NOMBRE,
+	 * filter.getNombre() )); <br/>
+	 * }<br/>
+	 *
+	 * return criteria;<br/>
 	 * 
 	 * @author Thejuampi
 	 * 

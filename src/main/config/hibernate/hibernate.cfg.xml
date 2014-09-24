@@ -9,7 +9,7 @@
          <property name="hibernate.connection.username">mmanager</property> 
          <property name="hibernate.connection.password">mmanager</property> 
   		 <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-  		 <property name="hibernate.hbm2ddl.auto">create</property>
+  		 <property name="hibernate.hbm2ddl.auto">update</property>
          <property name="hibernate.connection_pool_size">1</property> 
          <property name="hibernate.show_sql">true</property> 
 	</session-factory>

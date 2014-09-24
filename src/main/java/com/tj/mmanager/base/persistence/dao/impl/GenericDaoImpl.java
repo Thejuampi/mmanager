@@ -8,8 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tj.mmanager.base.persistence.dao.GenericDao;
 import com.tj.mmanager.base.persistence.filter.GenericFilter;
@@ -26,10 +26,16 @@ import com.tj.mmanager.base.persistence.filter.GenericFilter;
  * 
  */
 @Repository
+@Transactional
 public abstract class GenericDaoImpl<T, PK> implements GenericDao<T, PK> {
 
-	@Autowired
+	private static final long serialVersionUID = -995110203875994717L;
+
 	SessionFactory session;
+
+	public void setSession(SessionFactory session) {
+		this.session = session;
+	}
 
 	private Class<T> type;
 
@@ -61,7 +67,7 @@ public abstract class GenericDaoImpl<T, PK> implements GenericDao<T, PK> {
 	}
 
 	@Override
-	public void save(T entity) {
+	public void saveEntity(T entity) {
 		getSession().save(entity);
 		getSession().flush();
 	}
