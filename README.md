@@ -1,2 +1,5 @@
 mmanager
 ========
+La creacion de mmanager persigue principalmente dos objetivos. Aprender a utilizar Vaadin en conjunto con Spring y Hibernate y por otro lado, crear una aplicacion multiplataforma para la gestión y quehaceres cotidianos (y no tanto) de un docente. Finalmente se puede rescatar un tercer objetivo no tan importante: reforzar mis conocimientos en el lenguaje de programación Java.
+
+Para que el proyecto funcione adecuadamente recomiendo utilizar la IDE Eclipse con el plugin de GIT, Spring, Hibernate, Vaadin y Maven. La base de datos se puede modificar por archivo de configuración, pero está seteada para funcionar con una de tipo PostgreSQL 9.3 con las siguientes caracteristicas: base de datos: mmanager, password: mmanager, usuario mmanager, password: lo mismo... .Cabe destacar que la seguridad no es un punto tenido en cuenta por la aplicación, ya que como bien dije en un principio, su finalidad yace en motivos autodidácticos. Pueden reutilizar el codigo proporcionado como se especifica en la licencia, aunque no está de mas recordar que pido minimamente que me incluyan en los creditos.
