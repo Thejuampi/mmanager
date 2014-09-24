@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import scala.annotation.meta.getter;
-
 import com.tj.mmanager.base.bussines.service.LocalidadService;
 import com.tj.mmanager.base.domain.model.Localidad;
 import com.vaadin.data.util.BeanItemContainer;
@@ -28,9 +26,7 @@ public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
     @Override
     public void search(Localidad bean) {
     	List<Localidad> localidades = service.findAll();
-    	for(Localidad l : localidades) {
-    		System.out.println(l.getNombre());
-    	}
+    	reloadResultsTable(localidades, true);
     }
 
     @Override

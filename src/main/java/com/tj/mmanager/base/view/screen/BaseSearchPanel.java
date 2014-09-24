@@ -1,6 +1,7 @@
 package com.tj.mmanager.base.view.screen;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -51,7 +52,6 @@ public abstract class BaseSearchPanel<T extends Object> extends Panel implements
 		// initMapFieldGenerator();
 		mainLayout = buildMainLayout();
 		this.addComponent(mainLayout);
-		// addFieldGenerator(propertyId, fieldGenerator)
 	}
 
 	protected VerticalLayout buildMainLayout() {
@@ -73,9 +73,36 @@ public abstract class BaseSearchPanel<T extends Object> extends Panel implements
 		resultsTable.setContainerDataSource(container);
 		resultsTable.setVisibleColumns(getVisibleColumns());
 		resultsTable.setColumnHeaders(getColumnHeaders());
+		resultsTable.setSelectable(true);
 		layout.addComponent(resultsLabel);
 		layout.addComponent(resultsTable);
 		return layout;
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected void reloadResultsTable(BeanItemContainer<T> container, boolean reload) {
+		if(reload) {
+			resultsTable.removeAllItems();
+			resultsTable.setContainerDataSource(container);
+		} else {
+			BeanItemContainer<T> tableDataSource = (BeanItemContainer<T>) resultsTable.getContainerDataSource();
+			tableDataSource.addAll(container.getItemIds());
+		}
+		resultsTable.setVisibleColumns(getVisibleColumns());
+		resultsTable.setColumnHeaders(getColumnHeaders());
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected void reloadResultsTable(List<T> beans, boolean reload) {
+		BeanItemContainer<T> tableDataSource = (BeanItemContainer<T>) resultsTable.getContainerDataSource();
+		if(reload) {
+			resultsTable.removeAllItems();
+			tableDataSource.addAll(beans);
+		} else {
+			tableDataSource.addAll(beans);
+		}
+		resultsTable.setVisibleColumns(getVisibleColumns());
+		resultsTable.setColumnHeaders(getColumnHeaders());
 	}
 
 	// protected abstract void initMapFieldGenerator();
