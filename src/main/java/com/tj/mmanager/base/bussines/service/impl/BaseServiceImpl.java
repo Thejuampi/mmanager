@@ -2,7 +2,6 @@ package com.tj.mmanager.base.bussines.service.impl;
 
 import java.util.List;
 
-import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
