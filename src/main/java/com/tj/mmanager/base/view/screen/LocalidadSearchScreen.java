@@ -13,7 +13,7 @@ import com.vaadin.ui.ComponentContainer;
 
 @Component
 @Scope("prototype")
-public class LocalidadSearchScreen extends BaseSearchPanel<Localidad> {
+public class LocalidadSearchScreen extends GenericSearchPanel<Localidad> {
 
     private static final long serialVersionUID = 4870452614299228051L;
 

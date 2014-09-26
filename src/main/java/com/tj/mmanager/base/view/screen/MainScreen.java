@@ -27,7 +27,6 @@ public class MainScreen extends CustomComponent {
     
     @PostConstruct
     protected void init(){
-    	//getApplication().setTheme("applayout");
     	this.setWidth("800px");
     	mainLayout = buildMainLayout();
     	setCompositionRoot(mainLayout);
@@ -36,7 +35,7 @@ public class MainScreen extends CustomComponent {
     protected VerticalLayout buildMainLayout() {
 	VerticalLayout layout = new VerticalLayout();
 	layout.setWidth(100.0f, UNITS_PERCENTAGE);
-	labelTitulo = new Label("MuchyManager");
+	labelTitulo = new Label("mmanager");
 	labelTitulo.setStyleName("title");
 	layout.addComponent(labelTitulo);
 	layout.addComponent(localidadSearchScreen);

@@ -24,7 +24,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Component
 @Scope("prototype")
-public abstract class BaseSearchPanel<T extends Object> extends Panel implements
+public abstract class GenericSearchPanel<T extends Object> extends Panel implements
 		Serializable {
 
 	private static final long serialVersionUID = 8814637617684988536L;
@@ -47,7 +47,7 @@ public abstract class BaseSearchPanel<T extends Object> extends Panel implements
 	// private static final String DEFAULT_PANEL_TITLE = "BaseSearchPanel";
 	// private static final String DEFAULT_RESULTS_TITLE = "Results";
 
-	public BaseSearchPanel() {
+	public GenericSearchPanel() {
 		// this.clazz = (Class<T>) bean.getClass();
 		// initMapFieldGenerator();
 		mainLayout = buildMainLayout();
@@ -74,6 +74,7 @@ public abstract class BaseSearchPanel<T extends Object> extends Panel implements
 		resultsTable.setVisibleColumns(getVisibleColumns());
 		resultsTable.setColumnHeaders(getColumnHeaders());
 		resultsTable.setSelectable(true);
+		resultsTable.setWidth("95%");
 		layout.addComponent(resultsLabel);
 		layout.addComponent(resultsTable);
 		return layout;

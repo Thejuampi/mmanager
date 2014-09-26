@@ -71,10 +71,9 @@ public class CicloLectivo {
 	return escuela;
     }
 
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, mappedBy=Trimestre.Atributos.CICLO_LECTIVO)
     public List<Trimestre> getTrimestres() {
 	return trimestres;
-	//TODO ver aca hay algo raro.
     }
 
     public void setId(Long id) {

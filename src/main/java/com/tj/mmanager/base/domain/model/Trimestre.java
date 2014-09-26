@@ -3,8 +3,10 @@ package com.tj.mmanager.base.domain.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -21,12 +23,14 @@ public class Trimestre {
 	static final String NOMBRE = "nombre";
 	static final String FECHA_INICIO = "fechaInicio";
 	static final String FECHA_FIN = "fechaFin";
+	static final String CICLO_LECTIVO = "cicloLectivo";
     }
 
     private Long id;
     private Date fechaFin;
     private Date fechaInicio;
     private String nombre;
+    private CicloLectivo cicloLectivo;
 
     public Trimestre() {
 
@@ -52,6 +56,11 @@ public class Trimestre {
     public Date getFechaInicio() {
 	return fechaInicio;
     }
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+	public CicloLectivo getCicloLectivo() {
+		return cicloLectivo;
+	}
 
     public String getNombre() {
 	return nombre;
@@ -72,4 +81,8 @@ public class Trimestre {
     public void setNombre(String nombre) {
 	this.nombre = nombre;
     }
+
+	public void setCicloLectivo(CicloLectivo cicloLectivo) {
+		this.cicloLectivo = cicloLectivo;
+	}
 }// end Trimestre
