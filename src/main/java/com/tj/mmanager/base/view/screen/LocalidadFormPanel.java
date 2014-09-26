@@ -17,4 +17,22 @@ public class LocalidadFormPanel extends GenericFormPanel<Localidad> {
 		return VISIBLE_PROPERTIES;
 	}
 
+	@Override
+	protected String getWindowTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void aceptar(Localidad bean) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void cancelar(Localidad bean) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
