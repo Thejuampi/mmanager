@@ -40,7 +40,7 @@ public class LocalidadSearchScreen extends GenericSearchPanel<Localidad> {
 
     @Override
     public void newEntity(Localidad bean) {
-
+    	
     }
 
     @Override

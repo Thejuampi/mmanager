@@ -77,6 +77,7 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel impleme
 		resultsTable.setWidth("95%");
 		layout.addComponent(resultsLabel);
 		layout.addComponent(resultsTable);
+		layout.setComponentAlignment(resultsTable, Alignment.MIDDLE_CENTER);
 		return layout;
 	}
 	
