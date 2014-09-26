@@ -1,10 +1,7 @@
 package com.tj.mmanager.base.view.screen;
 
-import java.util.Collection;
-
 import javax.annotation.PostConstruct;
 
-import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Form;
