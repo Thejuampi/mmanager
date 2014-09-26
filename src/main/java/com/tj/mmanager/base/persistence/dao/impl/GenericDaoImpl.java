@@ -95,6 +95,11 @@ public abstract class GenericDaoImpl<T, PK> implements GenericDao<T, PK> {
 		DetachedCriteria criteria = createCriteriaByFilter(baseFilter);
 		return criteria.getExecutableCriteria(getSession()).list();
 	}
+	
+	@Override
+	public void updateEntity(T entity){
+		getSession().update(entity);
+	}
 
 	// public abstract DetachedCriteria createFilterCriteria(T filter){
 	//
