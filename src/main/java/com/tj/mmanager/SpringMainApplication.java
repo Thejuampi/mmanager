@@ -32,7 +32,7 @@ public class SpringMainApplication extends SpringContextApplication implements B
 
     @Override
     public void initSpringApplication(ConfigurableWebApplicationContext context) {
-        this.log.info("initializing HelloWorld application...");
+        this.log.info("initializing application...");
 
         // Example of creating a @VaadinConfigurable bean
         this.log.info(this.getClass().getSimpleName() + " invoking new VaadinConfigurableBean()");
