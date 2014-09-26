@@ -134,7 +134,7 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel impleme
 
 	public abstract void close();
 
-	public abstract void newEntity(T bean);
+	public abstract void newEntity();
 
 	public abstract void clear();
 
@@ -162,7 +162,7 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel impleme
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				newEntity(bean);
+				newEntity();
 			}
 		});
 

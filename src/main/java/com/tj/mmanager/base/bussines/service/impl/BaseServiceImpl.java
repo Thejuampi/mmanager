@@ -32,7 +32,7 @@ public abstract class BaseServiceImpl<T,PK> implements BaseService<T, PK> {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void saveEntity(T entity) {
 		dao.saveEntity(entity);
 	}
@@ -41,6 +41,12 @@ public abstract class BaseServiceImpl<T,PK> implements BaseService<T, PK> {
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	public List<T> filter(GenericFilter<PK> baseFilter) {
 		return dao.filter(baseFilter);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	public void updateEntity(T entity) {
+		dao.updateEntity(entity);
 	}
 
 }

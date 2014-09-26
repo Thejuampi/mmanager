@@ -15,4 +15,6 @@ public interface BaseService<T,PK> extends Serializable {
 	
 	public void saveEntity(T entity);
 	
+	public void updateEntity(T entity);
+	
 }

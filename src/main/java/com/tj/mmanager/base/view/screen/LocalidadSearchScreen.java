@@ -23,6 +23,9 @@ public class LocalidadSearchScreen extends GenericSearchPanel<Localidad> {
     
     @Autowired
     LocalidadService service;
+    
+    @Autowired
+    LocalidadFormPanel form;
 
     @Override
     public void search(Localidad bean) {
@@ -39,8 +42,8 @@ public class LocalidadSearchScreen extends GenericSearchPanel<Localidad> {
     }
 
     @Override
-    public void newEntity(Localidad bean) {
-    	
+    public void newEntity() {
+    	getApplication().getMainWindow().addWindow(form.createWindow());
     }
 
     @Override

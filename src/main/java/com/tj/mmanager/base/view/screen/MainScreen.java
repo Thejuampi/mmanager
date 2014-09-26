@@ -14,7 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 
 @Component
-@Scope("prototype")
+@Scope("request")
 public class MainScreen extends CustomComponent {
 
 	private static final long serialVersionUID = 3924599993603881234L;

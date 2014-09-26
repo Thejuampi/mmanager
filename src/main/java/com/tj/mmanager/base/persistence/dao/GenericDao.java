@@ -9,7 +9,7 @@ import org.hibernate.criterion.DetachedCriteria;
 
 import com.tj.mmanager.base.persistence.filter.GenericFilter;
 
-public interface GenericDao<T, PK> extends Serializable{
+public interface GenericDao<T, PK> extends Serializable {
 
 	/**
 	 * 
@@ -56,6 +56,13 @@ public interface GenericDao<T, PK> extends Serializable{
 	 */
 	public void saveEntity(T entity);
 
+	/**
+	 * 
+	 * @param entity la entidad a ser actualizada en la base de datos.
+	 */
+	public void updateEntity(T entity);
+	
+	
 	/**
 	 * 
 	 * @return la sessionFactory.getCurrentSession() gestionada por Spring y
