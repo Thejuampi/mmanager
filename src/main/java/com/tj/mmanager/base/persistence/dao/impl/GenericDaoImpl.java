@@ -69,7 +69,7 @@ public abstract class GenericDaoImpl<T, PK> implements GenericDao<T, PK> {
 	@Override
 	public void saveEntity(T entity) {
 		getSession().save(entity);
-		getSession().flush();
+		//getSession().flush();
 	}
 
 	@Override

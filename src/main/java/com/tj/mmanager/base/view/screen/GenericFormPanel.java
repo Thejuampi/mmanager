@@ -2,6 +2,8 @@ package com.tj.mmanager.base.view.screen;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.context.annotation.Scope;
+
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -10,6 +12,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 
+@Scope("prototype")
 public abstract class GenericFormPanel<T extends Object> extends Form {
 
 	private static final long serialVersionUID = -1416600404416900271L;
@@ -51,6 +54,7 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 
 	@PostConstruct
 	public void init() {
+		//bean = initBean();
 		this.setItemDataSource(getBeanItem());
 		aceptarButton = new Button("Aceptar", new Button.ClickListener() {
 
@@ -60,6 +64,7 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 			public void buttonClick(ClickEvent event) {
 				commit();
 				aceptar(bean);
+				bean = initBean();
 			}
 		});
 		cancelarButton = new Button("MOD", new Button.ClickListener() {

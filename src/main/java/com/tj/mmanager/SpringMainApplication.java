@@ -11,9 +11,14 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 
 @SuppressWarnings("serial")
+@EnableAutoConfiguration
+@EnableSpringConfigured
 public class SpringMainApplication extends SpringContextApplication implements BeanFactoryAware, InitializingBean, DisposableBean {
 
     protected transient Logger log = Logger.getLogger(this.getClass());

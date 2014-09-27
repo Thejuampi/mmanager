@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.tj.mmanager.base.bussines.service.LocalidadService;
@@ -11,6 +12,7 @@ import com.tj.mmanager.base.domain.model.Localidad;
 import com.tj.mmanager.base.persistence.dao.GenericDao;
 
 @Service
+@Scope("singleton")
 public class LocalidadServiceImpl extends BaseServiceImpl<Localidad, Long>
 		implements LocalidadService {
 	

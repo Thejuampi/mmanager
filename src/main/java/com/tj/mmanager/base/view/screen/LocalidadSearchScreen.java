@@ -3,6 +3,7 @@ package com.tj.mmanager.base.view.screen;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,11 @@ public class LocalidadSearchScreen extends GenericSearchPanel<Localidad> {
     	List<Localidad> localidades = service.findAll();
     	reloadResultsTable(localidades, true);
     }
+    
+    @Lookup
+    public LocalidadFormPanel getForm(){
+    	return form;
+    }
 
     @Override
     public void close() {
@@ -43,7 +49,7 @@ public class LocalidadSearchScreen extends GenericSearchPanel<Localidad> {
 
     @Override
     public void newEntity() {
-    	getApplication().getMainWindow().addWindow(form.createWindow());
+    	getApplication().getMainWindow().addWindow(getForm().createWindow());
     }
 
     @Override
