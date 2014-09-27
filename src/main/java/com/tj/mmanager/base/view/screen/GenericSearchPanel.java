@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import com.tj.mmanager.base.view.generator.TjDefaultFieldFactory;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -22,16 +22,17 @@ import com.vaadin.ui.VerticalLayout;
 /*
  * Para establecer los titulos hay que sobreescribir @getTitlePanel() y @getResultsTitle()
  */
-@Component
 @Scope("prototype")
-public abstract class GenericSearchPanel<T extends Object> extends Panel implements
-		Serializable {
+public abstract class GenericSearchPanel<T extends Object> extends Panel
+		implements Serializable {
 
 	private static final long serialVersionUID = 8814637617684988536L;
 
 	private T bean;
 	// Map<String, FieldGenerator> mapFieldGenerator = new HashMap<String,
 	// FieldGenerator>();
+	
+	private TjDefaultFieldFactory fieldFactory = new TjDefaultFieldFactory();
 
 	private VerticalLayout mainLayout;
 	private Label titleLabel = new Label();
@@ -80,24 +81,27 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel impleme
 		layout.setComponentAlignment(resultsTable, Alignment.MIDDLE_CENTER);
 		return layout;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	protected void reloadResultsTable(BeanItemContainer<T> container, boolean reload) {
-		if(reload) {
+	protected void reloadResultsTable(BeanItemContainer<T> container,
+			boolean reload) {
+		if (reload) {
 			resultsTable.removeAllItems();
 			resultsTable.setContainerDataSource(container);
 		} else {
-			BeanItemContainer<T> tableDataSource = (BeanItemContainer<T>) resultsTable.getContainerDataSource();
+			BeanItemContainer<T> tableDataSource = (BeanItemContainer<T>) resultsTable
+					.getContainerDataSource();
 			tableDataSource.addAll(container.getItemIds());
 		}
 		resultsTable.setVisibleColumns(getVisibleColumns());
 		resultsTable.setColumnHeaders(getColumnHeaders());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	protected void reloadResultsTable(List<T> beans, boolean reload) {
-		BeanItemContainer<T> tableDataSource = (BeanItemContainer<T>) resultsTable.getContainerDataSource();
-		if(reload) {
+		BeanItemContainer<T> tableDataSource = (BeanItemContainer<T>) resultsTable
+				.getContainerDataSource();
+		if (reload) {
 			resultsTable.removeAllItems();
 			tableDataSource.addAll(beans);
 		} else {
@@ -118,7 +122,7 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel impleme
 
 	protected Form buildForm() {
 
-		Form form = new Form();
+		Form form = new Form(null,fieldFactory);
 		bean = getBean();
 		BeanItem<T> item = new BeanItem<T>(bean, getVisibleItemProperties());
 		// Item item = new BeanItem<T>
@@ -132,11 +136,38 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel impleme
 	 */
 	public abstract void search(T bean);
 
-	public abstract void close();
+	public void close() {
+		if (getParent() != null) {
+			ComponentContainer container = (ComponentContainer) getParent();
+			container.removeComponent(this);
+		}
+		afterClose();
+	}
+
+	/**
+	 * Por defecto, cuando se presiona el boton cerrar se cierra la ventana,
+	 * pero si se quiere, se pueden realizar otras tareas luego de su cierre
+	 * implementando este método
+	 */
+	public abstract void afterClose();
 
 	public abstract void newEntity();
+	
+	public void resetForm(){
+//		bean = getBean();
+//		BeanItem<T> item = new BeanItem<T>(bean, getVisibleItemProperties());
+//		form.setItemDataSource(item);
+//		form.discard();
+		bean = getBean();
+		form.discard();
+	}
 
-	public abstract void clear();
+	protected void clear(){
+		resetForm();
+		afterClear();
+	}
+	
+	protected abstract void afterClear();
 
 	public abstract BeanItemContainer<?> getBeanItemContainer();
 
@@ -171,10 +202,10 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel impleme
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				for (Object propertyId :  form.getItemPropertyIds() ) {
+				for (Object propertyId : form.getItemPropertyIds()) {
 					form.getField(propertyId).setValue(null);
 				}
-				
+
 				clear();
 			}
 		});
@@ -199,9 +230,9 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel impleme
 				Alignment.MIDDLE_RIGHT);
 		return layoutExterno;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	protected T getFormData(){
+	protected T getFormData() {
 		BeanItem<T> beanItem = (BeanItem<T>) form.getItemDataSource();
 		return beanItem.getBean();
 	}

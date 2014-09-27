@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.context.annotation.Scope;
 
+import com.tj.mmanager.base.view.generator.TjDefaultFieldFactory;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -26,11 +27,14 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 	Button cancelarButton;
 
 	Window formWindow;
+	
+	private TjDefaultFieldFactory fieldFactory = new TjDefaultFieldFactory();
 
 	T bean = initBean();
 
 	public GenericFormPanel() {
-
+		super();
+		setFormFieldFactory(fieldFactory);
 	}
 
 	protected abstract T initBean();
@@ -54,7 +58,7 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 
 	@PostConstruct
 	public void init() {
-		//bean = initBean();
+		// bean = initBean();
 		this.setItemDataSource(getBeanItem());
 		aceptarButton = new Button("Aceptar", new Button.ClickListener() {
 
@@ -64,10 +68,10 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 			public void buttonClick(ClickEvent event) {
 				commit();
 				aceptar(bean);
-				bean = initBean();
+				closeWindow();
 			}
 		});
-		cancelarButton = new Button("MOD", new Button.ClickListener() {
+		cancelarButton = new Button("Cerrar", new Button.ClickListener() {
 
 			private static final long serialVersionUID = 4440529822842883414L;
 
@@ -75,6 +79,7 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 			public void buttonClick(ClickEvent event) {
 				commit();
 				cancelar(bean);
+				closeWindow();
 			}
 		});
 
@@ -86,7 +91,8 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 		HorizontalLayout outerLayout = new HorizontalLayout();
 		outerLayout.setSizeUndefined();
 		outerLayout.addComponent(botonesLayout);
-		outerLayout.setComponentAlignment(botonesLayout, Alignment.MIDDLE_RIGHT);
+		outerLayout
+				.setComponentAlignment(botonesLayout, Alignment.MIDDLE_RIGHT);
 		setFooter(outerLayout);
 	}
 
@@ -99,13 +105,28 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 		return formWindow;
 	}
 
+	/**
+	 * cierra la ventana
+	 */
+	public void closeWindow() {
+		if (formWindow.getParent() != null) {
+			formWindow.getParent().removeWindow(formWindow);
+		}
+	}
+
+	/**
+	 * Si la ventana esta contenida dentro de otro window 'parent'
+	 * 
+	 * @param parent
+	 *            la ventana padre
+	 */
 	public void closeWindow(Window parent) {
 		if (parent.getChildWindows().contains(formWindow)) {
 			parent.removeWindow(formWindow);
 		}
 	}
-	
-	public String getWindowWidgth(){
+
+	public String getWindowWidgth() {
 		return "450px";
 	}
 

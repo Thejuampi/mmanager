@@ -38,12 +38,11 @@ public class LocalidadFormPanel extends GenericFormPanel<Localidad> {
 			service.saveEntity(bean);
 		else
 			service.updateEntity(bean);
-		closeWindow(getApplication().getMainWindow());
 	}
 
 	@Override
 	protected void cancelar(Localidad bean) {
-		closeWindow(getApplication().getMainWindow());
 	}
+	
 
 }
