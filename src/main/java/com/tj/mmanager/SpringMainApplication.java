@@ -1,9 +1,6 @@
 
 package com.tj.mmanager;
 
-import com.tj.mmanager.base.view.screen.MainScreen;
-import com.vaadin.ui.Window;
-
 import org.apache.log4j.Logger;
 import org.dellroad.stuff.vaadin.SpringContextApplication;
 import org.springframework.beans.factory.BeanFactory;
@@ -11,10 +8,13 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
+
+import com.tj.mmanager.base.view.screen.MainScreen;
+import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 @EnableAutoConfiguration
@@ -34,6 +34,11 @@ public class SpringMainApplication extends SpringContextApplication implements B
     public SpringMainApplication() {
         this.log.info(this.getClass().getSimpleName() + " constructor invoked");
     }
+    
+    @Lookup
+    MainScreen getMainScreen(){
+    	return mainScreen;
+    }
 
     @Override
     public void initSpringApplication(ConfigurableWebApplicationContext context) {
@@ -45,7 +50,7 @@ public class SpringMainApplication extends SpringContextApplication implements B
         setTheme("applayout");
         Window mainWindow = new Window("PRUEBA");
         this.setMainWindow(mainWindow);
-        mainWindow.addComponent(mainScreen);
+        mainWindow.addComponent(getMainScreen());
     }
 
     @Override

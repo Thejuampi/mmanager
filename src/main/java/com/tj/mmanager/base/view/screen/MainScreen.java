@@ -3,6 +3,7 @@ package com.tj.mmanager.base.view.screen;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +39,7 @@ public class MainScreen extends CustomComponent {
 		mainLayout = buildMainLayout();
 		setCompositionRoot(mainLayout);
 	}
-
+	
 	protected VerticalLayout buildMainLayout() {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setWidth(100.0f, UNITS_PERCENTAGE);
@@ -65,10 +66,16 @@ public class MainScreen extends CustomComponent {
 				if (searchPanelActual != null) {
 					mainLayout.removeComponent(searchPanelActual);					
 				}
-				mainLayout.addComponent(localidadSearchScreen);
-				searchPanelActual = localidadSearchScreen;
+				LocalidadSearchScreen lss = getLocalidadSearchScreen();
+				mainLayout.addComponent(lss);
+				searchPanelActual = lss;
 			}
 		});
 		return boton;
+	}
+	
+	@Lookup
+	LocalidadSearchScreen getLocalidadSearchScreen(){
+		return localidadSearchScreen;
 	}
 }
