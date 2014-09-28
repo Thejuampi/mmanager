@@ -3,7 +3,7 @@ package com.tj.mmanager.base.view.screen;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.context.annotation.Scope;
+import com.tj.mmanager.base.persistence.filter.GenericFilter;
 import com.tj.mmanager.base.view.generator.TjDefaultFieldFactory;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
@@ -13,24 +13,24 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Form;
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.VerticalLayout;
 
 /*
  * Para establecer los titulos hay que sobreescribir @getTitlePanel() y @getResultsTitle()
  */
-@Scope("prototype")
-public abstract class GenericSearchPanel<T extends Object> extends Panel
+
+public abstract class GenericSearchPanel<BEAN , FILTER extends GenericFilter<PK>, PK extends Serializable> extends Panel
 		implements Serializable {
 
 	private static final long serialVersionUID = 8814637617684988536L;
 
-	private T bean;
-	// Map<String, FieldGenerator> mapFieldGenerator = new HashMap<String,
-	// FieldGenerator>();
+	private FILTER searchBean;
 	
 	private TjDefaultFieldFactory fieldFactory = new TjDefaultFieldFactory();
 
@@ -49,8 +49,6 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 	// private static final String DEFAULT_RESULTS_TITLE = "Results";
 
 	public GenericSearchPanel() {
-		// this.clazz = (Class<T>) bean.getClass();
-		// initMapFieldGenerator();
 		mainLayout = buildMainLayout();
 		this.addComponent(mainLayout);
 	}
@@ -83,13 +81,13 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void reloadResultsTable(BeanItemContainer<T> container,
+	protected void reloadResultsTable(BeanItemContainer<BEAN> container,
 			boolean reload) {
 		if (reload) {
 			resultsTable.removeAllItems();
 			resultsTable.setContainerDataSource(container);
 		} else {
-			BeanItemContainer<T> tableDataSource = (BeanItemContainer<T>) resultsTable
+			BeanItemContainer<BEAN> tableDataSource = (BeanItemContainer<BEAN>) resultsTable
 					.getContainerDataSource();
 			tableDataSource.addAll(container.getItemIds());
 		}
@@ -98,8 +96,8 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void reloadResultsTable(List<T> beans, boolean reload) {
-		BeanItemContainer<T> tableDataSource = (BeanItemContainer<T>) resultsTable
+	protected void reloadResultsTable(List<BEAN> beans, boolean reload) {
+		BeanItemContainer<BEAN> tableDataSource = (BeanItemContainer<BEAN>) resultsTable
 				.getContainerDataSource();
 		if (reload) {
 			resultsTable.removeAllItems();
@@ -111,20 +109,15 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 		resultsTable.setColumnHeaders(getColumnHeaders());
 	}
 
-	// protected abstract void initMapFieldGenerator();
-
-	// protected void addFieldGenerator(String propertyId, FieldGenerator
-	// fieldGenerator) {
-	// mapFieldGenerator.put(propertyId, fieldGenerator);
-	// }
-
-	protected abstract T getBean();
+	protected abstract FILTER getSearchBean();
 
 	protected Form buildForm() {
 
-		Form form = new Form(null,fieldFactory);
-		bean = getBean();
-		BeanItem<T> item = new BeanItem<T>(bean, getVisibleItemProperties());
+		loadFormFieldFactories();
+		loadTableFormFieldFactories();
+		Form form = new Form(null, fieldFactory);
+		searchBean = getSearchBean();
+		BeanItem<FILTER> item = new BeanItem<FILTER>(searchBean, getVisibleFormFields());
 		// Item item = new BeanItem<T>
 		form.setItemDataSource(item);
 
@@ -134,7 +127,7 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 	/*
 	 * Implementar para el evento Buscar
 	 */
-	public abstract void search(T bean);
+	public abstract void search(FILTER filter);
 
 	public void close() {
 		if (getParent() != null) {
@@ -154,11 +147,7 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 	public abstract void newEntity();
 	
 	public void resetForm(){
-//		bean = getBean();
-//		BeanItem<T> item = new BeanItem<T>(bean, getVisibleItemProperties());
-//		form.setItemDataSource(item);
-//		form.discard();
-		bean = getBean();
+		searchBean = getSearchBean();
 		form.discard();
 	}
 
@@ -167,9 +156,12 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 		afterClear();
 	}
 	
+//	@Lookup
+//	protected abstract GenericFormPanel<?> getNewForm();
+	
 	protected abstract void afterClear();
 
-	public abstract BeanItemContainer<?> getBeanItemContainer();
+	public abstract BeanItemContainer<? extends BEAN> getBeanItemContainer();
 
 	protected HorizontalLayout buildButtonsLayout() {
 		HorizontalLayout layoutInterno = new HorizontalLayout();
@@ -184,7 +176,7 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				search(bean);
+				search(searchBean);
 			}
 		});
 
@@ -232,12 +224,12 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 	}
 
 	@SuppressWarnings("unchecked")
-	protected T getFormData() {
-		BeanItem<T> beanItem = (BeanItem<T>) form.getItemDataSource();
+	protected FILTER getFormData() {
+		BeanItem<FILTER> beanItem = (BeanItem<FILTER>) form.getItemDataSource();
 		return beanItem.getBean();
 	}
 
-	protected abstract String[] getVisibleItemProperties();
+	protected abstract String[] getVisibleFormFields();
 
 	protected abstract String[] getColumnHeaders();
 
@@ -249,6 +241,31 @@ public abstract class GenericSearchPanel<T extends Object> extends Panel
 
 	protected String getResultsTitle() {
 		return "RESULTADOS";
+	}
+	
+	/**
+	 * Si se hace un override de esta funcion se van a cargar los fieldFactories
+	 * en el constructor
+	 */
+	protected void loadFormFieldFactories() {
+		
+	}
+	
+	protected void loadTableFormFieldFactories(){
+		
+	}
+
+	protected void addFormFieldFactory(Object propertyId,
+			FormFieldFactory fieldFactory) {
+		this.fieldFactory.addFormFieldFactory(propertyId, fieldFactory);
+	}
+	/**
+	 * 
+	 * @param propertyId id de la propiedad
+	 * @param fieldFactory el fieldFactory asociado al propertyId.
+	 */
+	protected void addTableFieldFactory(Object propertyId, TableFieldFactory fieldFactory){
+		this.fieldFactory.addTableFieldFactory(propertyId, fieldFactory);
 	}
 
 }

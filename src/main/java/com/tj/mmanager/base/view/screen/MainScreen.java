@@ -22,13 +22,17 @@ public class MainScreen extends CustomComponent {
 
 	@Autowired
 	private LocalidadSearchScreen localidadSearchScreen;
+	
+	@Autowired
+	private EscuelaSearchScreen escuelaSearchScreen;
 
 	private VerticalLayout mainLayout;
 	private Label labelTitulo;
 
-	GenericSearchPanel<?> searchPanelActual=null;
+	GenericSearchPanel<?,?,?> searchPanelActual=null;
 
 	private Button localidadSearchButton;
+	private Button escuelaSearchButton;
 
 	public MainScreen() {
 	}
@@ -47,19 +51,39 @@ public class MainScreen extends CustomComponent {
 		labelTitulo.setStyleName("title");
 		layout.addComponent(labelTitulo);
 		localidadSearchButton = buildLocalidadSearchButton();
+		escuelaSearchButton = buildEscuelaSearchButton();
 
 		GridLayout grillaBotones = new GridLayout(2, 2);
 		grillaBotones.addComponent(localidadSearchButton);
+		grillaBotones.addComponent(escuelaSearchButton);
 		// layout.addComponent(localidadSearchScreen);
 		layout.addComponent(grillaBotones);
 
 		return layout;
 	}
 
+	private Button buildEscuelaSearchButton() {
+		Button boton = new Button("Escuelas", new Button.ClickListener() {
+
+			private static final long serialVersionUID = -5230486086438197334L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if (searchPanelActual != null) {
+					mainLayout.removeComponent(searchPanelActual);					
+				}
+				EscuelaSearchScreen ess = getEscuelaSearchScreen();
+				mainLayout.addComponent(ess);
+				searchPanelActual = ess;
+			}
+		});
+		return boton;
+	}
+
 	private Button buildLocalidadSearchButton() {
 		Button boton = new Button("Localidades", new Button.ClickListener() {
 
-			private static final long serialVersionUID = -5230486086438197334L;
+			private static final long serialVersionUID = -1560077881803034447L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -77,5 +101,10 @@ public class MainScreen extends CustomComponent {
 	@Lookup
 	LocalidadSearchScreen getLocalidadSearchScreen(){
 		return localidadSearchScreen;
+	}
+	
+	@Lookup
+	EscuelaSearchScreen getEscuelaSearchScreen(){
+		return escuelaSearchScreen;
 	}
 }

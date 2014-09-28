@@ -7,6 +7,10 @@ public class LocalidadFilter extends GenericFilter<Long> {
 	public LocalidadFilter(String nombre){
 		this.nombre = nombre;
 	}
+	
+	public LocalidadFilter() {
+		
+	}
 
 	public String getNombre() {
 		return nombre;

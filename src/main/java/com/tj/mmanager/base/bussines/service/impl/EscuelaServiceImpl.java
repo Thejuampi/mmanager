@@ -5,21 +5,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.tj.mmanager.base.bussines.service.LocalidadService;
-import com.tj.mmanager.base.domain.model.Localidad;
+import com.tj.mmanager.base.bussines.service.EscuelaService;
+import com.tj.mmanager.base.domain.model.Escuela;
 import com.tj.mmanager.base.persistence.dao.GenericDao;
 
 @Service
 @Scope("singleton")
-public class LocalidadServiceImpl extends BaseServiceImpl<Localidad, Long>
-		implements LocalidadService {
-	
-	private static final long serialVersionUID = -7799141139109962063L;
+public class EscuelaServiceImpl extends BaseServiceImpl<Escuela, Long> implements EscuelaService {
 
-	@Autowired
+	private static final long serialVersionUID = 1L;
+	
 	@Override
-	protected void setDao(@Qualifier("localidadDaoImpl")GenericDao<Localidad, Long> dao) {
+	@Autowired
+	protected void setDao(@Qualifier("escuelaDaoImpl")GenericDao<Escuela, Long> dao) {
 		super.setDao(dao);
 	}
-
 }

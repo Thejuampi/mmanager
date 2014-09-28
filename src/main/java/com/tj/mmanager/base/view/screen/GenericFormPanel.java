@@ -2,18 +2,16 @@ package com.tj.mmanager.base.view.screen;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.context.annotation.Scope;
-
 import com.tj.mmanager.base.view.generator.TjDefaultFieldFactory;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Form;
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 
-@Scope("prototype")
 public abstract class GenericFormPanel<T extends Object> extends Form {
 
 	private static final long serialVersionUID = -1416600404416900271L;
@@ -27,13 +25,14 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 	Button cancelarButton;
 
 	Window formWindow;
-	
+
 	private TjDefaultFieldFactory fieldFactory = new TjDefaultFieldFactory();
 
 	T bean = initBean();
 
 	public GenericFormPanel() {
 		super();
+		loadFormFieldFactories();
 		setFormFieldFactory(fieldFactory);
 	}
 
@@ -124,6 +123,19 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 		if (parent.getChildWindows().contains(formWindow)) {
 			parent.removeWindow(formWindow);
 		}
+	}
+
+	/**
+	 * Si se hace un override de esta funcion se van a cargar los fieldFactories
+	 * en el constructor
+	 */
+	protected void loadFormFieldFactories() {
+
+	}
+
+	protected void addFormFieldFactory(Object propertyId,
+			FormFieldFactory fieldFactory) {
+		this.fieldFactory.addFormFieldFactory(propertyId, fieldFactory);
 	}
 
 	public String getWindowWidgth() {

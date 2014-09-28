@@ -3,6 +3,7 @@ package com.tj.mmanager.base.persistence.dao.impl;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,7 +34,7 @@ public class LocalidadDaoImpl extends GenericDaoImpl<Localidad, Long> implements
 		LocalidadFilter f = (LocalidadFilter) filter;
 		
 		if(StringUtils.isNotBlank(f.getNombre())){
-			criteria.add(Restrictions.ilike( Localidad.Atributos.NOMBRE, f.getNombre() ));
+			criteria.add(Restrictions.ilike( Localidad.Atributos.NOMBRE, f.getNombre(), MatchMode.START ));
 		}
 			
 		return criteria;

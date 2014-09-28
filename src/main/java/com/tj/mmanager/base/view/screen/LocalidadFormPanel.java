@@ -43,6 +43,10 @@ public class LocalidadFormPanel extends GenericFormPanel<Localidad> {
 	@Override
 	protected void cancelar(Localidad bean) {
 	}
+
+	@Override
+	public void loadFormFieldFactories() {
 	
+	}
 
 }
