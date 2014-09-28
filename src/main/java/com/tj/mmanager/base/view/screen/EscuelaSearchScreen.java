@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.tj.mmanager.base.bussines.service.EscuelaService;
 import com.tj.mmanager.base.domain.model.Escuela;
-import com.tj.mmanager.base.domain.model.Localidad;
 import com.tj.mmanager.base.persistence.filter.EscuelaFilter;
 import com.tj.mmanager.base.view.generator.LocalidadComboGenerator;
 import com.vaadin.data.util.BeanItemContainer;
@@ -21,8 +20,8 @@ public class EscuelaSearchScreen extends GenericSearchPanel<Escuela, EscuelaFilt
 	private static final long serialVersionUID = -4176091466789161372L;
 	
 	private static final String[] VISIBLE_FORM_FIELDS = new String[] {Escuela.Atributos.LOCALIDAD, Escuela.Atributos.NOMBRE, Escuela.Atributos.NUMERO, Escuela.Atributos.EMAIL};
-	private static final String[] COLUMN_HEADERS = new String[] {"Localidad", "Nombre", "Número", "Tel.", "e-mail"};
-	private static final String[] VISIBLE_COLUMNS = new String[] {Escuela.Atributos.LOCALIDAD+"."+Localidad.Atributos.NOMBRE, Escuela.Atributos.NOMBRE, Escuela.Atributos.NUMERO, Escuela.Atributos.TELEFONO, Escuela.Atributos.EMAIL};
+	private static final String[] COLUMN_HEADERS = new String[] { "Nombre", "Número", "Tel.", "e-mail"};
+	private static final String[] VISIBLE_COLUMNS = new String[] { Escuela.Atributos.NOMBRE, Escuela.Atributos.NUMERO, Escuela.Atributos.TELEFONO, Escuela.Atributos.EMAIL};
 	
 	@Autowired
 	EscuelaService service;
@@ -65,6 +64,9 @@ public class EscuelaSearchScreen extends GenericSearchPanel<Escuela, EscuelaFilt
 	public BeanItemContainer<? extends Escuela> getBeanItemContainer() {
 		BeanItemContainer<Escuela> container = new BeanItemContainer<Escuela>(Escuela.class);
 		container.addNestedContainerProperty("localidad.nombre");
+		container.removeContainerProperty(Escuela.Atributos.LOCALIDAD);
+		container.removeContainerProperty(Escuela.Atributos.CICLOS_LECTIVOS);
+		container.removeContainerProperty(Escuela.Atributos.ID);
 		return container;
 	}
 
@@ -83,7 +85,7 @@ public class EscuelaSearchScreen extends GenericSearchPanel<Escuela, EscuelaFilt
 		return VISIBLE_COLUMNS;
 	}
 
-	@Lookup
+	@Lookup("escuelaFormPanel")
 	protected EscuelaFormPanel getNewForm() {
 		return form;
 	}

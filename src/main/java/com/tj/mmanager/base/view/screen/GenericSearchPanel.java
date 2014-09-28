@@ -3,6 +3,8 @@ package com.tj.mmanager.base.view.screen;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import com.tj.mmanager.base.persistence.filter.GenericFilter;
 import com.tj.mmanager.base.view.generator.TjDefaultFieldFactory;
 import com.vaadin.data.util.BeanItem;
@@ -49,6 +51,11 @@ public abstract class GenericSearchPanel<BEAN , FILTER extends GenericFilter<PK>
 	// private static final String DEFAULT_RESULTS_TITLE = "Results";
 
 	public GenericSearchPanel() {
+		
+	}
+	
+	@PostConstruct
+	protected void init(){
 		mainLayout = buildMainLayout();
 		this.addComponent(mainLayout);
 	}
@@ -83,6 +90,8 @@ public abstract class GenericSearchPanel<BEAN , FILTER extends GenericFilter<PK>
 	@SuppressWarnings("unchecked")
 	protected void reloadResultsTable(BeanItemContainer<BEAN> container,
 			boolean reload) {
+		resultsTable.setVisibleColumns(getVisibleColumns());
+		resultsTable.setColumnHeaders(getColumnHeaders());
 		if (reload) {
 			resultsTable.removeAllItems();
 			resultsTable.setContainerDataSource(container);
@@ -91,12 +100,12 @@ public abstract class GenericSearchPanel<BEAN , FILTER extends GenericFilter<PK>
 					.getContainerDataSource();
 			tableDataSource.addAll(container.getItemIds());
 		}
-		resultsTable.setVisibleColumns(getVisibleColumns());
-		resultsTable.setColumnHeaders(getColumnHeaders());
 	}
 
 	@SuppressWarnings("unchecked")
 	protected void reloadResultsTable(List<BEAN> beans, boolean reload) {
+		resultsTable.setVisibleColumns(getVisibleColumns());
+		resultsTable.setColumnHeaders(getColumnHeaders());
 		BeanItemContainer<BEAN> tableDataSource = (BeanItemContainer<BEAN>) resultsTable
 				.getContainerDataSource();
 		if (reload) {
@@ -105,8 +114,6 @@ public abstract class GenericSearchPanel<BEAN , FILTER extends GenericFilter<PK>
 		} else {
 			tableDataSource.addAll(beans);
 		}
-		resultsTable.setVisibleColumns(getVisibleColumns());
-		resultsTable.setColumnHeaders(getColumnHeaders());
 	}
 
 	protected abstract FILTER getSearchBean();

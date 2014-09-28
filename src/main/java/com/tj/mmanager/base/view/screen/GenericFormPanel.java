@@ -32,8 +32,6 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 
 	public GenericFormPanel() {
 		super();
-		loadFormFieldFactories();
-		setFormFieldFactory(fieldFactory);
 	}
 
 	protected abstract T initBean();
@@ -57,7 +55,9 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 
 	@PostConstruct
 	public void init() {
-		// bean = initBean();
+		bean = initBean();
+		loadFormFieldFactories();
+		setFormFieldFactory(fieldFactory);
 		this.setItemDataSource(getBeanItem());
 		aceptarButton = new Button("Aceptar", new Button.ClickListener() {
 
@@ -111,6 +111,7 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 		if (formWindow.getParent() != null) {
 			formWindow.getParent().removeWindow(formWindow);
 		}
+		bean = initBean();
 	}
 
 	/**
@@ -123,6 +124,7 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 		if (parent.getChildWindows().contains(formWindow)) {
 			parent.removeWindow(formWindow);
 		}
+		bean=initBean();
 	}
 
 	/**

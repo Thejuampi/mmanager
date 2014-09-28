@@ -18,7 +18,7 @@ public class LocalidadSearchScreen extends GenericSearchPanel<Localidad, Localid
 
 	private static final long serialVersionUID = 4870452614299228051L;
 
-	static final String[] VISIBLE_ITEM_PROPERTIES = new String[] { Localidad.Atributos.NOMBRE };
+	static final String[] VISIBLE_FORM_FIELDS = new String[] { Localidad.Atributos.NOMBRE };
 	static final String[] COLUMN_HEADERS = new String[] { Localidad.Atributos.NOMBRE };
 	static final String[] VISIBLE_COLUMNS = new String[] { Localidad.Atributos.NOMBRE };
 
@@ -34,7 +34,7 @@ public class LocalidadSearchScreen extends GenericSearchPanel<Localidad, Localid
 		reloadResultsTable(localidades, true);
 	}
 
-	@Lookup
+	@Lookup 
 	public LocalidadFormPanel getNewForm() {
 		return form;
 	}
@@ -68,7 +68,7 @@ public class LocalidadSearchScreen extends GenericSearchPanel<Localidad, Localid
 
 	@Override
 	protected String[] getVisibleFormFields() {
-		return VISIBLE_ITEM_PROPERTIES;
+		return VISIBLE_FORM_FIELDS;
 	}
 
 	@Override

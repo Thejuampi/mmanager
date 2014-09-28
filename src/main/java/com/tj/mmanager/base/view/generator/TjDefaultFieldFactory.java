@@ -53,7 +53,9 @@ public class TjDefaultFieldFactory implements FormFieldFactory,
 		
 		TableFieldFactory tff = tableFieldFactories.get(itemId);
 		if(tff != null){
-			return tff.createField(container, itemId, propertyId, uiContext);
+			Field field = createField(container, itemId, propertyId, uiContext);
+			field.setCaption(createCaptionByPropertyId(propertyId));
+			return field;
 		} else {
 			Property containerProperty = container.getContainerProperty(itemId, propertyId);
 			Class<?> type = containerProperty.getType();
@@ -68,7 +70,9 @@ public class TjDefaultFieldFactory implements FormFieldFactory,
 	public Field createField(Item item, Object propertyId, Component uiContext) {
 		FormFieldFactory fff = formFieldFactories.get(propertyId);
 		if(fff != null) {
-			return fff.createField(item, propertyId, uiContext);
+			Field field = fff.createField(item, propertyId, uiContext);
+			field.setCaption(createCaptionByPropertyId(propertyId));
+			return field;
 		} else {
 			Class<?> type = item.getItemProperty(propertyId).getType();
 			Field field = createFieldByPropertyType(type);
