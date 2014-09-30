@@ -3,6 +3,9 @@ package com.tj.mmanager.base.domain.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -14,9 +17,17 @@ public class Tema {
 		public static final String ELEMENTO_EVALUABLE = "elementoEvaluable";
 	}
 	
+	private Long id;
 	private String nombre;
 	private Materia materia;
 	private ElementoEvaluable elementoEvaluable;
+	
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public Long getId() {
+		return id;
+	}
 	
 	@Column(nullable = false, length=255)
 	public String getNombre() {
@@ -27,7 +38,7 @@ public class Tema {
 		this.nombre = nombre;
 	}
 
-	@ManyToMany(fetch=FetchType.LAZY, mappedBy=ElementoEvaluable.Atributos.TEMAS)
+	@ManyToOne(fetch=FetchType.LAZY)
 	public ElementoEvaluable getElementoEvaluable() {
 		return elementoEvaluable;
 	}
@@ -43,5 +54,9 @@ public class Tema {
 
 	public void setMateria(Materia materia) {
 		this.materia = materia;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

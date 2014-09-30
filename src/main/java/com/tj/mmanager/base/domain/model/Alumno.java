@@ -17,8 +17,10 @@ import javax.persistence.OneToMany;
 public class Alumno extends Persona {
 
     public interface Atributos extends Persona.Atributos {
-	static final String DETALLES_ELEMENTOS_EVALUABLES = "detallesElementosEvaluables", DIVISIONES = "divisiones";
+	static final String DETALLES_ELEMENTOS_EVALUABLES = "detallesElementosEvaluables";
     static final String ESCUELA = "escuela";
+    static final String DIVISIONES = "divisiones";
+    static final String DIVISION_ACTUAL = "divisionActual";
     }
 
     private Escuela escuela;

@@ -25,6 +25,9 @@ public class MainScreen extends CustomComponent {
 	
 	@Autowired
 	private EscuelaSearchScreen escuelaSearchScreen;
+	
+	@Autowired
+	private AlumnoSearchPanel alumnoSearchPanel;
 
 	private VerticalLayout mainLayout;
 	private Label labelTitulo;
@@ -33,6 +36,7 @@ public class MainScreen extends CustomComponent {
 
 	private Button localidadSearchButton;
 	private Button escuelaSearchButton;
+	private Button alumnoSearchButton;
 
 	public MainScreen() {
 	}
@@ -52,14 +56,34 @@ public class MainScreen extends CustomComponent {
 		layout.addComponent(labelTitulo);
 		localidadSearchButton = buildLocalidadSearchButton();
 		escuelaSearchButton = buildEscuelaSearchButton();
+		alumnoSearchButton = buildAlumnoSearchButton();
 
 		GridLayout grillaBotones = new GridLayout(2, 2);
 		grillaBotones.addComponent(localidadSearchButton);
 		grillaBotones.addComponent(escuelaSearchButton);
-		// layout.addComponent(localidadSearchScreen);
+		grillaBotones.addComponent(alumnoSearchButton);
+		
 		layout.addComponent(grillaBotones);
 
 		return layout;
+	}
+
+	private Button buildAlumnoSearchButton() {
+		Button boton = new Button("Alumnos", new Button.ClickListener() {
+
+			private static final long serialVersionUID = -5230486086438197334L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if (searchPanelActual != null) {
+					mainLayout.removeComponent(searchPanelActual);					
+				}
+				AlumnoSearchPanel asp = getAlumnoSearchPanel();
+				mainLayout.addComponent(asp);
+				searchPanelActual = asp;
+			}
+		});
+		return boton;
 	}
 
 	private Button buildEscuelaSearchButton() {
@@ -106,5 +130,10 @@ public class MainScreen extends CustomComponent {
 	@Lookup
 	EscuelaSearchScreen getEscuelaSearchScreen(){
 		return escuelaSearchScreen;
+	}
+	
+	@Lookup("alumnoSearchPanel")
+	protected AlumnoSearchPanel getAlumnoSearchPanel() {
+		return alumnoSearchPanel;
 	}
 }

@@ -66,7 +66,6 @@ public class EscuelaSearchScreen extends GenericSearchPanel<Escuela, EscuelaFilt
 		container.addNestedContainerProperty("localidad.nombre");
 		container.removeContainerProperty(Escuela.Atributos.LOCALIDAD);
 		container.removeContainerProperty(Escuela.Atributos.CICLOS_LECTIVOS);
-		container.removeContainerProperty(Escuela.Atributos.ID);
 		return container;
 	}
 
