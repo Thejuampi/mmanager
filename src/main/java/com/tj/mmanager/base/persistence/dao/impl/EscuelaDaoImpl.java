@@ -33,7 +33,7 @@ public class EscuelaDaoImpl extends GenericDaoImpl<Escuela, Long> implements
 		EscuelaFilter f = (EscuelaFilter) filter;
 		
 		if( StringUtils.isNotBlank(f.getNombre()) ) {
-			criteria.add(Restrictions.ilike(Escuela.Atributos.NOMBRE, f.getNombre(), MatchMode.START));
+			criteria.add(Restrictions.ilike(Escuela.Atributos.NOMBRE, f.getNombre(), MatchMode.ANYWHERE));
 		}
 		
 		if (StringUtils.isNotBlank(f.getEmail())) {

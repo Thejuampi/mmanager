@@ -9,7 +9,11 @@ import org.springframework.stereotype.Component;
 
 import com.tj.mmanager.base.bussines.service.AlumnoService;
 import com.tj.mmanager.base.domain.model.Alumno;
+import com.tj.mmanager.base.domain.model.Curso;
+import com.tj.mmanager.base.domain.model.Division;
+import com.tj.mmanager.base.domain.model.Escuela;
 import com.tj.mmanager.base.persistence.filter.AlumnoFilter;
+import com.tj.mmanager.base.view.generator.EscuelasComboGenerator;
 import com.vaadin.data.util.BeanItemContainer;
 
 @Component
@@ -20,15 +24,18 @@ public class AlumnoSearchPanel extends GenericSearchPanel<Alumno,AlumnoFilter,Lo
 	
 	private static final String[] VISIBLE_FORM_FIELDS = new String[]{ Alumno.Atributos.ESCUELA, Alumno.Atributos.APELLIDO, Alumno.Atributos.NOMBRE, Alumno.Atributos.DIVISION_ACTUAL };
 	
-	private static final String[] COLUMN_HEADERS = new String[]{  };
+	static final String[] VISIBLE_COLUMNS = new String[] { Alumno.Atributos.ESCUELA+"."+Escuela.Atributos.NOMBRE, Alumno.Atributos.APELLIDO, Alumno.Atributos.NOMBRE, Alumno.Atributos.DIVISION_ACTUAL+"."+Division.Atributos.CURSO+"."+Curso.Atributos.NOMBRE, Alumno.Atributos.DIVISION_ACTUAL+"."+Division.Atributos.NOMBRE };
 	
-	private static final String[] VISIBLE_COLUMNS = new String[]{  };
+	static final String[] COLUMN_HEADERS = new String[]{ "Escuela", "Nombre", "Apellido", "Curso", "División" };
 	
 	@Autowired
 	private AlumnoService service;
 	
 	@Autowired
 	AlumnoFormPanel form;
+	
+	@Autowired
+	EscuelasComboGenerator escuelaGenerator;
 	
 	@Override
 	protected AlumnoFilter getSearchBean() {
@@ -68,6 +75,14 @@ public class AlumnoSearchPanel extends GenericSearchPanel<Alumno,AlumnoFilter,Lo
 		BeanItemContainer<Alumno> container = new BeanItemContainer<Alumno>(Alumno.class);
 		container.removeContainerProperty(Alumno.Atributos.DETALLES_ELEMENTOS_EVALUABLES);
 		container.removeContainerProperty(Alumno.Atributos.DIVISIONES);
+		container.removeContainerProperty(Alumno.Atributos.ESCUELA);
+		//Escuela
+		container.addNestedContainerProperty(Alumno.Atributos.ESCUELA+"."+Escuela.Atributos.NOMBRE);
+		//Division
+		container.addNestedContainerProperty(Alumno.Atributos.DIVISION_ACTUAL+"."+Division.Atributos.NOMBRE);
+		//Curso
+		container.addNestedContainerProperty(Alumno.Atributos.DIVISION_ACTUAL+"."+Division.Atributos.CURSO+"."+Curso.Atributos.NOMBRE);
+		
 		return container;
 	}
 
@@ -85,6 +100,9 @@ public class AlumnoSearchPanel extends GenericSearchPanel<Alumno,AlumnoFilter,Lo
 	protected String[] getVisibleColumns() {
 		return VISIBLE_COLUMNS;
 	}
-
-
+	
+	@Override
+	protected void loadFormFieldFactories() {
+		addFormFieldFactory(Alumno.Atributos.ESCUELA, escuelaGenerator);
+	}
 }

@@ -10,7 +10,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vaadin.version>6.8.1</vaadin.version>
+		<vaadin.version>6.8.14</vaadin.version>
 		<gwt.version>2.3.0</gwt.version>
 		<spring.version>3.2.9.RELEASE</spring.version>
 

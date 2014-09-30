@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.tj.mmanager.base.bussines.service.AlumnoService;
 import com.tj.mmanager.base.domain.model.Alumno;
+import com.tj.mmanager.base.view.generator.EscuelasComboGenerator;
 
 @Component
 @Scope("prototype")
@@ -13,10 +14,13 @@ public class AlumnoFormPanel extends GenericFormPanel<Alumno> {
 
 	private static final long serialVersionUID = -8269760230511747158L;
 
-	static final String[] VISIBLE_PROPERTIES = new String[] {Alumno.Atributos.ESCUELA, Alumno.Atributos.APELLIDO, Alumno.Atributos.NOMBRE, Alumno.Atributos.DIVISION_ACTUAL, Alumno.Atributos.DIVISIONES, Alumno.Atributos.DETALLES_ELEMENTOS_EVALUABLES};
-
+	static final String[] VISIBLE_PROPERTIES = new String[] {Alumno.Atributos.ESCUELA, Alumno.Atributos.APELLIDO, Alumno.Atributos.NOMBRE};
+	
 	@Autowired
 	private AlumnoService service;
+	
+	@Autowired
+	private EscuelasComboGenerator escuelaComboGenerator;
 	
 	@Override
 	protected Alumno initBean() {
@@ -49,7 +53,7 @@ public class AlumnoFormPanel extends GenericFormPanel<Alumno> {
 
 	@Override
 	protected void loadFormFieldFactories() {
-		//TODO crear los FieldFactories
+		addFormFieldFactory(Alumno.Atributos.ESCUELA, escuelaComboGenerator);
 	}
 
 }

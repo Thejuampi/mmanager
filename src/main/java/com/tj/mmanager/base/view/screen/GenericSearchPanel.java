@@ -58,6 +58,11 @@ public abstract class GenericSearchPanel<BEAN , FILTER extends GenericFilter<PK>
 	protected void init(){
 		mainLayout = buildMainLayout();
 		this.addComponent(mainLayout);
+		afterInit();
+	}
+
+	private void afterInit() {
+		
 	}
 
 	protected VerticalLayout buildMainLayout() {
