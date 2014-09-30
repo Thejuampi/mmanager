@@ -1,10 +1,14 @@
 package com.tj.mmanager.base.view.screen;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.tj.mmanager.base.bussines.service.AlumnoService;
 import com.tj.mmanager.base.domain.model.Alumno;
 
+@Component
+@Scope("prototype")
 public class AlumnoFormPanel extends GenericFormPanel<Alumno> {
 
 	private static final long serialVersionUID = -8269760230511747158L;

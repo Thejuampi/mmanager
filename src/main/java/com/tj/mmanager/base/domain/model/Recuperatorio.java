@@ -11,7 +11,17 @@ public class Recuperatorio extends Examen {
 		static final String EXAMEN = "examen";
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
 	private Examen examen;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	public Examen getExamen() {
+		return examen;
+	}
+
+	public void setExamen(Examen examen) {
+		this.examen = examen;
+	}
+	
+	
 		
 }

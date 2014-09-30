@@ -3,6 +3,7 @@ package com.tj.mmanager.base.view.screen;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,9 @@ public class AlumnoSearchPanel extends GenericSearchPanel<Alumno,AlumnoFilter,Lo
 	@Autowired
 	private AlumnoService service;
 	
+	@Autowired
+	AlumnoFormPanel form;
+	
 	@Override
 	protected AlumnoFilter getSearchBean() {
 		return new AlumnoFilter();
@@ -45,8 +49,12 @@ public class AlumnoSearchPanel extends GenericSearchPanel<Alumno,AlumnoFilter,Lo
 
 	@Override
 	public void newEntity() {
-		// TODO Auto-generated method stub
-		
+		getApplication().getMainWindow().addWindow(getNewForm().createWindow());	
+	}
+
+	@Lookup("alumnoFormPanel")
+	private AlumnoFormPanel getNewForm() {
+		return form;
 	}
 
 	@Override

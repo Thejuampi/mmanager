@@ -92,7 +92,7 @@ public class CicloLectivo {
 	this.fechaInicio = fechaInicio;
     }
 
-    public void setEscuela(List<Escuela> escuelas) {
+    public void setEscuelas(List<Escuela> escuelas) {
 	this.escuelas = escuelas;
     }
 
