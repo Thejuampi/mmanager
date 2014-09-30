@@ -8,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +26,7 @@ public class CicloLectivo {
 	static final String ANIO = "anio";
 	static final String FECHA_FIN = "fechaFin";
 	static final String FECHA_INICIO = "fechaInicio";
-	static final String ESCUELA = "escuela";
+	static final String ESCUELAS = "escuelas";
 	static final String TRIMESTRES = "trimestres";
     }
 
@@ -34,7 +34,7 @@ public class CicloLectivo {
     private Short anio;
     private Date fechaFin;
     private Date fechaInicio;
-    private Escuela escuela;
+    private List <Escuela> escuelas;
     private List<Trimestre> trimestres;
 
     public CicloLectivo() {
@@ -66,9 +66,9 @@ public class CicloLectivo {
 	return fechaInicio;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    public Escuela getEscuela() {
-	return escuela;
+    @ManyToMany(fetch=FetchType.LAZY, mappedBy=Escuela.Atributos.CICLOS_LECTIVOS)
+    public List<Escuela> getEscuelas() {
+	return escuelas;
     }
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy=Trimestre.Atributos.CICLO_LECTIVO)
@@ -92,8 +92,8 @@ public class CicloLectivo {
 	this.fechaInicio = fechaInicio;
     }
 
-    public void setEscuela(Escuela escuela) {
-	this.escuela = escuela;
+    public void setEscuela(List<Escuela> escuelas) {
+	this.escuelas = escuelas;
     }
 
     public void setTrimestres(List<Trimestre> trimestres) {

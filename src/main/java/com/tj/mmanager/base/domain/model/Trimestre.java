@@ -1,12 +1,15 @@
 package com.tj.mmanager.base.domain.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,6 +27,8 @@ public class Trimestre {
 	static final String FECHA_INICIO = "fechaInicio";
 	static final String FECHA_FIN = "fechaFin";
 	static final String CICLO_LECTIVO = "cicloLectivo";
+	static final String CURSOS = "cursos";
+	static final String ELEMENTOS_EVALUABLES = "elementosEvaluables";
     }
 
     private Long id;
@@ -31,6 +36,8 @@ public class Trimestre {
     private Date fechaInicio;
     private String nombre;
     private CicloLectivo cicloLectivo;
+    private List<Curso> cursos;
+    private List<ElementoEvaluable> elementosEvaluables;
 
     public Trimestre() {
 
@@ -61,6 +68,11 @@ public class Trimestre {
 	public CicloLectivo getCicloLectivo() {
 		return cicloLectivo;
 	}
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = ElementoEvaluable.Atributos.TRIMESTRE)
+	public List<ElementoEvaluable> getElementosEvaluables() {
+		return elementosEvaluables;
+	}
 
     public String getNombre() {
 	return nombre;
@@ -84,5 +96,18 @@ public class Trimestre {
 
 	public void setCicloLectivo(CicloLectivo cicloLectivo) {
 		this.cicloLectivo = cicloLectivo;
+	}
+
+	@ManyToMany(fetch=FetchType.LAZY, mappedBy = Curso.Atributos.TRIMESTRES)
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+	public void setElementosEvaluables(List<ElementoEvaluable> elementosEvaluables) {
+		this.elementosEvaluables = elementosEvaluables;
 	}
 }// end Trimestre

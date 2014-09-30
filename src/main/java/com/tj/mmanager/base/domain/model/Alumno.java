@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -17,11 +18,15 @@ public class Alumno extends Persona {
 
     public interface Atributos extends Persona.Atributos {
 	static final String DETALLES_ELEMENTOS_EVALUABLES = "detallesElementosEvaluables", DIVISIONES = "divisiones";
+    static final String ESCUELA = "escuela";
     }
 
+    private Escuela escuela;
+    
     // private List<ElementoEvaluable> elementosEvaluables;
     private List<DetalleElementoEvaluable> detallesElementosEvaluables;
     private List<Division> divisiones;
+    private Division divisionActual;
 
     public Alumno() {
 
@@ -42,6 +47,16 @@ public class Alumno extends Persona {
     public List<Division> getDivisiones() {
 	return divisiones;
     }
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+	public Escuela getEscuela() {
+		return escuela;
+	}
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+	public Division getDivisionActual() {
+		return divisionActual;
+	}
 
     public void setDetallesElementosEvaluables(List<DetalleElementoEvaluable> detallesElementosEvaluables) {
 	this.detallesElementosEvaluables = detallesElementosEvaluables;
@@ -50,4 +65,12 @@ public class Alumno extends Persona {
     public void setDivisiones(List<Division> divisiones) {
 	this.divisiones = divisiones;
     }
+
+	public void setEscuela(Escuela escuela) {
+		this.escuela = escuela;
+	}
+
+	public void setDivisionActual(Division divisionActual) {
+		this.divisionActual = divisionActual;
+	}
 }// end Alumno

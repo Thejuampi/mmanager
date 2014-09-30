@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,6 +27,7 @@ public class Curso {
 	static final String TRIMESTRES = "trimestres";
 	static final String DIVISIONES = "divisiones";
 	static final String MATERIAS = "materias";
+	static final String ESCUELA = "escuela";
     }
 
     private Long id;
@@ -33,6 +35,7 @@ public class Curso {
     private List<Trimestre> trimestres;
     private List<Division> divisiones;
     private List<Materia> materias;
+    private Escuela escuela;
 
     public Curso() {
 
@@ -53,10 +56,9 @@ public class Curso {
 	return nombre;
     }
 
-    @OneToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
     public List<Trimestre> getTrimestres() {
 	return trimestres;
-	//TODO estoy haciendo esto a las 00:31 y tengo mucho sueño
     }
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy = Division.Atributos.CURSO)
@@ -69,6 +71,11 @@ public class Curso {
 	return materias;
 	//TODO ver quien mapea a quien.
     }
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+	public Escuela getEscuela() {
+		return escuela;
+	}
 
     public void setId(Long id) {
 	this.id = id;
@@ -89,4 +96,8 @@ public class Curso {
     public void setMaterias(List<Materia> materias) {
 	this.materias = materias;
     }
+
+	public void setEscuela(Escuela escuela) {
+		this.escuela = escuela;
+	}
 }// end Curso

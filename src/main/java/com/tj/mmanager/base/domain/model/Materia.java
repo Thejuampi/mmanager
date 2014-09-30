@@ -22,6 +22,7 @@ public class Materia {
 	static final String NOMBRE = "nombre";
 	static final String ELEMENTOS_EVALUABLES = "elementosEvaluables";
 	static final String HORARIOS_MATERIAS = "horariosMaterias";
+	static final String TEMAS = "temas";
     }
 
     private Long id;
@@ -29,6 +30,7 @@ public class Materia {
     private List<ElementoEvaluable> elementosEvaluables;
     // private List<Division> divisiones;
     private List<HorarioMateria> horariosMaterias;
+    private List<Tema> temas;
 
     public Materia() {
 
@@ -58,6 +60,11 @@ public class Materia {
     public List<HorarioMateria> getHorariosMaterias() {
 	return horariosMaterias;
     }
+    
+    @OneToMany(fetch=FetchType.LAZY, mappedBy=Tema.Atributos.MATERIA)
+	public List<Tema> getTemas() {
+		return temas;
+	}
 
     public void setId(Long id) {
 	this.id = id;
@@ -74,4 +81,8 @@ public class Materia {
     public void setHorariosMaterias(List<HorarioMateria> horariosMaterias) {
 	this.horariosMaterias = horariosMaterias;
     }
+
+	public void setTemas(List<Tema> temas) {
+		this.temas = temas;
+	}
 }// end Materia

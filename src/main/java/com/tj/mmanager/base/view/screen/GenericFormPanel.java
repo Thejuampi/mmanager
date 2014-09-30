@@ -84,11 +84,11 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 
 		botonesLayout.addComponent(aceptarButton);
 		botonesLayout.addComponent(cancelarButton);
-		botonesLayout.setWidth("100%");
+		botonesLayout.setWidth("-1");
 		botonesLayout.setMargin(true);
 		botonesLayout.setSpacing(true);
 		HorizontalLayout outerLayout = new HorizontalLayout();
-		outerLayout.setSizeUndefined();
+		outerLayout.setWidth("100%");
 		outerLayout.addComponent(botonesLayout);
 		outerLayout
 				.setComponentAlignment(botonesLayout, Alignment.MIDDLE_RIGHT);
@@ -141,7 +141,7 @@ public abstract class GenericFormPanel<T extends Object> extends Form {
 	}
 
 	public String getWindowWidgth() {
-		return "450px";
+		return "400px";
 	}
 
 }

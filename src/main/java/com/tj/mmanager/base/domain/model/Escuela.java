@@ -28,6 +28,7 @@ public class Escuela {
 	static final String TELEFONO = "telefono";
 	static final String LOCALIDAD = "localidad";
 	static final String CICLOS_LECTIVOS = "ciclosLectivos";
+	static final String CURSOS = "cursos";
     }
 
     private Long id;
@@ -38,6 +39,8 @@ public class Escuela {
     private Long telefono;
     private Localidad localidad;
     private List<CicloLectivo> ciclosLectivos;
+    private List<Curso> cursos;
+    private List<Alumno> alumnos;
 
     public Escuela(String direccion, String email, String nombre, Integer numero, Long telefono, Localidad localidad) {
 	this.direccion = direccion;
@@ -87,10 +90,20 @@ public class Escuela {
 	return localidad;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = CicloLectivo.Atributos.ESCUELA)
+    @OneToMany(fetch = FetchType.LAZY)
     public List<CicloLectivo> getCiclosLectivos() {
 	return ciclosLectivos;
     }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = Curso.Atributos.ESCUELA)
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = Alumno.Atributos.ESCUELA)
+	public List<Alumno> getAlumnos() {
+		return alumnos;
+	}
 
     public void setId(Long id) {
 	this.id = id;
@@ -123,4 +136,12 @@ public class Escuela {
     public void setCiclosLectivos(List<CicloLectivo> ciclosLectivos) {
 	this.ciclosLectivos = ciclosLectivos;
     }
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+	public void setAlumnos(List<Alumno> alumnos) {
+		this.alumnos = alumnos;
+	}
 }// end Escuela

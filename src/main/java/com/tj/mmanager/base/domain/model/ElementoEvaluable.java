@@ -36,6 +36,8 @@ public abstract class ElementoEvaluable {
 	static final String DIVISIONES = "divisiones";
 	static final String MATERIA = "materia";
 	static final String DETALLES = "detalles";
+	static final String TRIMESTRE = "trimestre";
+	static final String TEMAS = "temas";
     }
 
     private Long id;
@@ -45,6 +47,8 @@ public abstract class ElementoEvaluable {
     private List<Division> divisiones;
     private Materia materia;
     private List<DetalleElementoEvaluable> detalles;
+    private Trimestre trimestre;
+    private List<Tema> temas;
 
     public ElementoEvaluable() {
 
@@ -88,6 +92,16 @@ public abstract class ElementoEvaluable {
     public List<DetalleElementoEvaluable> getDetalles() {
 	return detalles;
     }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+	public Trimestre getTrimestre() {
+		return trimestre;
+	}
+    
+    @ManyToMany(fetch=FetchType.LAZY, mappedBy=Tema.Atributos.ELEMENTO_EVALUABLE)
+	public List<Tema> getTemas() {
+		return temas;
+	}
 
     public void setId(Long id) {
 	this.id = id;
@@ -116,4 +130,12 @@ public abstract class ElementoEvaluable {
     public void setDetalles(List<DetalleElementoEvaluable> detalles) {
 	this.detalles = detalles;
     }
+
+	public void setTrimestre(Trimestre trimestre) {
+		this.trimestre = trimestre;
+	}
+
+	public void setTemas(List<Tema> temas) {
+		this.temas = temas;
+	}
 }// end ElementoEvaluable
